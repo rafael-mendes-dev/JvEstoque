@@ -3,7 +3,7 @@ version: '3.8'
 services:
     sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
-        container_name: jvestoque
+        container_name: jvestoque_sqlserver
         environment:
             - ACCEPT_EULA=Y
             - SA_PASSWORD=${SA_PASSWORD}

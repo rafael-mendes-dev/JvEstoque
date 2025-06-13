@@ -9,5 +9,6 @@ public enum EPeca
     Legging = 5,
     Shorts = 6,
     Blusa = 7,
-    Jaqueta = 8
+    Jaqueta = 8,
+    Outro = 9
 }

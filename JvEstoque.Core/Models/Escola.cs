@@ -3,7 +3,7 @@
 public class Escola
 {
     public int Id { get; set; }
-    public string? Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
     public string? Endereco { get; set; }
     public string? Telefone { get; set; }
 

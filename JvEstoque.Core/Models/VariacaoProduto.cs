@@ -5,7 +5,7 @@ namespace JvEstoque.Core.Models;
 public class VariacaoProduto
 {
     public int Id { get; set; }
-    public string Sku { get; set; }
+    public string Sku { get; set; } = null!;
     public int ProdutoId { get; set; }
     public Produto Produto { get; set; } = null!;
     
@@ -18,5 +18,5 @@ public class VariacaoProduto
     public EGenero Genero { get; set; }
     public string? FotoUrl { get; set; }
 
-    public Estoque? Estoque { get; set; }
+    public Estoque Estoque { get; set; } = null!;
 }

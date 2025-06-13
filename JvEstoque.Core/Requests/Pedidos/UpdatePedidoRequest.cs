@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JvEstoque.Core.Enums;
 using JvEstoque.Core.Models;
+using JvEstoque.Core.Requests.ItensPedidos;
 
 namespace JvEstoque.Core.Requests.Pedidos;
 
 public class UpdatePedidoRequest
 {
+    public int Id { get; set; }
+    
     [Required(ErrorMessage = "Nome do cliente é obrigatório.")]
     [StringLength(120, MinimumLength = 3, ErrorMessage = "O nome do cliente deve ter entre 3 e 120 caracteres.")]
     public string NomeCliente { get; set; } = string.Empty;
@@ -18,5 +21,5 @@ public class UpdatePedidoRequest
     
     public DateTime? DataPedido { get; set; }
     
-    public IList<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+    public IList<CreateItemPedidoRequest> Itens { get; set; } = new List<CreateItemPedidoRequest>();
 }

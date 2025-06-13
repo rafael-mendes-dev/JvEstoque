@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JvEstoque.Core.Enums;
 using JvEstoque.Core.Models;
+using JvEstoque.Core.Requests.ItensPedidos;
 
 namespace JvEstoque.Core.Requests.Pedidos;
 
@@ -18,6 +19,6 @@ public class CreatePedidoRequest
     
     public DateTime? DataPedido { get; set; }
     
-    public IList<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+    public IList<CreateItemPedidoRequest> Itens { get; set; } = new List<CreateItemPedidoRequest>();
     
 }

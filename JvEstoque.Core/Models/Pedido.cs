@@ -11,6 +11,6 @@ public class Pedido
     public EStatusPedido Status { get; set; }
     public DateTime DataPedido { get; set; }
     public decimal ValorTotal { get; set; }
-    
-    public List<ItemPedido> Itens { get; set; } = new();
+
+    public IList<ItemPedido> Itens { get; set; } = null!;
 }

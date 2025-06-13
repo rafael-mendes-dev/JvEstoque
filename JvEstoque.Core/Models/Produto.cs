@@ -10,5 +10,5 @@ public class Produto
     public decimal Preco { get; set; }
     public string? Descricao { get; set; }
 
-    public List<VariacaoProduto> Variacoes { get; set; }
+    public IList<VariacaoProduto>? Variacoes { get; set; }
 }

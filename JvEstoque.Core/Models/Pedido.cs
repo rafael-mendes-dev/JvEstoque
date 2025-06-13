@@ -5,7 +5,7 @@ namespace JvEstoque.Core.Models;
 public class Pedido
 {
     public int Id { get; set; }
-    public string? NomeCliente { get; set; }
+    public string NomeCliente { get; set; } = null!;
     public string? TelefoneCliente { get; set; }
 
     public EStatusPedido Status { get; set; }

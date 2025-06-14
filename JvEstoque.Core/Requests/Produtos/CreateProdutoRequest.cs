@@ -17,7 +17,7 @@ public class CreateProdutoRequest
     [Range(0.01, double.MaxValue, ErrorMessage = "O preço deve ser maior que zero.")]
     public decimal Preco { get; set; }
     
-    [StringLength(500, ErrorMessage = "A descrição não pode exceder 500 caracteres.")]
+    [StringLength(250, ErrorMessage = "A descrição não pode exceder 500 caracteres.")]
     public string? Descricao { get; set; }
     
     public IList<CreateVariacaoProdutoRequest>? Variacoes { get; set; } = new List<CreateVariacaoProdutoRequest>();

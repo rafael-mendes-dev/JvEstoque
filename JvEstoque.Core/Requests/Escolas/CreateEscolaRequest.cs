@@ -12,6 +12,7 @@ public class CreateEscolaRequest
     public string? Endereco { get; set; }
     
     [Phone(ErrorMessage = "Telefone inválido.")]
+    [StringLength(15, ErrorMessage = "O telefone não pode exceder 15 caracteres.")]
     public string? Telefone { get; set; }
     
     public IList<CreateVariacaoProdutoRequest>? UniformesEscola { get; set; } = new List<CreateVariacaoProdutoRequest>();

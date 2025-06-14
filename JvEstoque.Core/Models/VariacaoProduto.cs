@@ -18,5 +18,9 @@ public class VariacaoProduto
     public EGenero Genero { get; set; }
     public string? FotoUrl { get; set; }
 
+    public int EstoqueId { get; set; }
     public Estoque Estoque { get; set; } = null!;
+    
+    public IList<ItemPedido> ItensPedidos { get; set; } = new List<ItemPedido>();
+
 }

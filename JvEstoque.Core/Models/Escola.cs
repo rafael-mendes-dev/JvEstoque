@@ -7,5 +7,5 @@ public class Escola
     public string? Endereco { get; set; }
     public string? Telefone { get; set; }
 
-    public IList<VariacaoProduto>? UniformesEscola { get; set; }
+    public IList<VariacaoProduto>? VariacoesProdutos { get; set; }
 }

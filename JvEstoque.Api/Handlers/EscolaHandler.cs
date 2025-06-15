@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using JvEstoque.Api.Data;
 using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.Escolas;
 using JvEstoque.Core.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Handlers
 {
@@ -22,7 +20,7 @@ namespace JvEstoque.Api.Handlers
                     Telefone = request.Telefone
                 };
 
-                context.Escolas.AddAsync(escola);
+                await context.Escolas.AddAsync(escola);
                 await context.SaveChangesAsync();
 
                 return new Response<Escola?>(escola, 201, "Escola criada com sucesso.");
@@ -53,7 +51,7 @@ namespace JvEstoque.Api.Handlers
             catch 
             {
                 
-                return new Responde<Escola?>(null, 500, "Erro ao atualizar a escola. Por favor, tente novamente mais tarde.");
+                return new Response<Escola?>(null, 500, "Erro ao atualizar a escola. Por favor, tente novamente mais tarde.");
             }
         }
     
@@ -85,7 +83,7 @@ namespace JvEstoque.Api.Handlers
 
                 return escola is null 
                     ? new Response<Escola?>(null, 404, "Escola não encontrada.")
-                    : Response<Escola?>(escola, message: "Escola encontrada com sucesso.");
+                    : new Response<Escola?>(escola, message: "Escola encontrada com sucesso.");
             }
             catch 
             {
@@ -98,11 +96,13 @@ namespace JvEstoque.Api.Handlers
             try
             {
                 var query = context.Escolas.AsNoTracking().OrderBy(e => e.Nome);
-
+                
+                var escolas = await query.Skip((request.PageNumber - 1) * request.PageSize)
+                                          .Take(request.PageSize)
+                                          .ToListAsync();
+                
                 var totalCount = await query.CountAsync();
-                var escolas = await query.Skip((request.Page - 1) * request.PageSize)
-                                            .Take(request.PageSize)
-                                            .ToListAsync();
+                
                 return new PagedResponse<List<Escola>>(escolas, totalCount, request.PageNumber, request.PageSize);
             }
             catch 

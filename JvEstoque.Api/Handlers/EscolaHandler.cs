@@ -110,6 +110,5 @@ namespace JvEstoque.Api.Handlers
                 return new PagedResponse<List<Escola>>(null, 500, "Erro ao buscar as escolas. Por favor, tente novamente mais tarde.");
             }
         }
-
     }
 }

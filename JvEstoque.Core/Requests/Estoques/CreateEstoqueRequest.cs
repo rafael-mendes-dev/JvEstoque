@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using JvEstoque.Core.Enums;
 
 namespace JvEstoque.Core.Requests.Estoques;
 

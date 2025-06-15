@@ -1,6 +1,4 @@
-﻿using JvEstoque.Core.Enums;
-
-namespace JvEstoque.Core.Models;
+﻿namespace JvEstoque.Core.Models;
 
 public class Estoque
 {

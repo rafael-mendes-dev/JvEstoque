@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JvEstoque.Core.Enums;
-using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.ItensPedidos;
 
 namespace JvEstoque.Core.Requests.Pedidos;

@@ -1,6 +1,6 @@
 ﻿namespace JvEstoque.Core.Requests.Produtos;
 
-public class GetAllProdutosRequest
+public class GetAllProdutosRequest : PagedRequest
 {
     
 }

@@ -1,6 +1,6 @@
 ﻿namespace JvEstoque.Core.Requests.Pedidos;
 
-public class GetAllPedidosRequest
+public class GetAllPedidosRequest : PagedRequest
 {
     
 }

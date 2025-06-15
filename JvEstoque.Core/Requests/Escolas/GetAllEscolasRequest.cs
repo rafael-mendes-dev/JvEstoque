@@ -1,6 +1,6 @@
 ﻿namespace JvEstoque.Core.Requests.Escolas;
 
-public class GetAllEscolasRequest
+public class GetAllEscolasRequest : PagedRequest
 {
     
 }

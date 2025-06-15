@@ -1,7 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using JvEstoque.Api.Common.Api;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x=> x.CustomSchemaIds(type => type.FullName));
+var builder = WebApplication.CreateBuilder(args);
+builder.AddConfiguration();
+builder.AddSecurity();
+builder.AddDataContexts();
+builder.AddCrossOrigin();
+builder.AddDocumentation();
+builder.AddServices();
 
 var app = builder.Build();
 

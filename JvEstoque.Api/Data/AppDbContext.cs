@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext (options)
 {
     public DbSet<Escola> Escolas { get; set; }
     public DbSet<Estoque> Estoques { get; set; }

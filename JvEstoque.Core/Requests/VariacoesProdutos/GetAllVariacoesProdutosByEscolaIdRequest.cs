@@ -1,6 +1,6 @@
 ﻿namespace JvEstoque.Core.Requests.VariacoesProdutos;
 
-public class GetAllVariacoesByEscolaIdRequest : PagedRequest
+public class GetAllVariacoesProdutosByEscolaIdRequest : PagedRequest
 {
     public int EscolaId { get; set; }
 }

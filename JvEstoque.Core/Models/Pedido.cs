@@ -9,7 +9,7 @@ public class Pedido
     public string? TelefoneCliente { get; set; }
 
     public EStatusPedido Status { get; set; }
-    public DateTime DataPedido { get; set; }
+    public DateTime? DataPedido { get; set; }
     public decimal ValorTotal { get; set; }
 
     public IList<ItemPedido> Itens { get; set; } = null!;

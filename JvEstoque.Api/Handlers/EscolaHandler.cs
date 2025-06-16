@@ -79,7 +79,7 @@ namespace JvEstoque.Api.Handlers
         {
             try
             {
-                var escola = await context.Escolas.FirstOrDefaultAsync(e => e.Id == request.Id);
+                var escola = await context.Escolas.AsNoTracking().FirstOrDefaultAsync(e => e.Id == request.Id);
 
                 return escola is null 
                     ? new Response<Escola?>(null, 404, "Escola não encontrada.")

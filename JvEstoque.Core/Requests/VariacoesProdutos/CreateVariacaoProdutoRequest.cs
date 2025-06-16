@@ -24,7 +24,4 @@ public class CreateVariacaoProdutoRequest
      
      [Required(ErrorMessage = "O gênero é obrigatório.")]
      public EGenero Genero { get; set; } = EGenero.Unissex;
-     
-     [Range(0, int.MaxValue, ErrorMessage = "A quantidade no estoque deve ser maior que zero.")]
-     public int Estoque { get; set; } = 0;
  }

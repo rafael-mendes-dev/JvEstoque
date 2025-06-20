@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JvEstoque.Api.Data;
+using JvEstoque.Api.Handlers;
 using JvEstoque.Core;
+using JvEstoque.Core.Handlers;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Common.Api
@@ -40,6 +42,12 @@ namespace JvEstoque.Api.Common.Api
         public static void AddServices(this WebApplicationBuilder builder)
         {
             // Registrar serviços de aplicação, como interfaces e implementações
+            builder.Services.AddScoped<IVariacaoProdutoHandler, VariacaoProdutoHandler>();
+            builder.Services.AddScoped<IPedidoHandler, PedidoHandler>();
+            builder.Services.AddScoped<IProdutoHandler, ProdutoHandler>();
+            builder.Services.AddScoped<IEscolaHandler, EscolaHandler>();
+            builder.Services.AddScoped<IEstoqueHandler, EstoqueHandler>();
+            builder.Services.AddScoped<IItemPedidoHandler, ItemPedidoHandler>();
         }
     }
 }

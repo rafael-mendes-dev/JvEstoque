@@ -13,7 +13,6 @@ public class ItemPedidoMapping : IEntityTypeConfiguration<ItemPedido>
         builder.HasKey(ip => ip.Id);
         builder.Property(ip => ip.Quantidade).IsRequired().HasColumnType("INT").HasDefaultValue(1);
         builder.Property(ip => ip.ValorUnitario).IsRequired().HasColumnType("MONEY");
-        builder.Property(ip => ip.SubTotal).IsRequired().HasColumnType("MONEY");
         
         builder.HasOne(ip => ip.Pedido)
             .WithMany(p => p.Itens)

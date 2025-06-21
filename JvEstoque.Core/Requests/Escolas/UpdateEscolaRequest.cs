@@ -6,6 +6,7 @@ namespace JvEstoque.Core.Requests.Escolas;
 
 public class UpdateEscolaRequest
 {
+    [JsonIgnore]
     public int Id { get; set; }
     
     [Required(ErrorMessage = "O nome da escola é obrigatório.")]

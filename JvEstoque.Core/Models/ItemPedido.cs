@@ -1,4 +1,6 @@
-﻿namespace JvEstoque.Core.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace JvEstoque.Core.Models;
 
 public class ItemPedido
 {
@@ -12,5 +14,6 @@ public class ItemPedido
     public int Quantidade { get; set; }
     public decimal ValorUnitario { get; set; }
     
+    [NotMapped]
     public decimal SubTotal => Quantidade * ValorUnitario;
 }

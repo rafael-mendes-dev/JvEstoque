@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using JvEstoque.Core.Requests.VariacoesProdutos;
 
 namespace JvEstoque.Core.Requests.Escolas;
@@ -15,5 +16,6 @@ public class CreateEscolaRequest
     [StringLength(15, ErrorMessage = "O telefone não pode exceder 15 caracteres.")]
     public string? Telefone { get; set; }
     
+    [JsonIgnore]
     public IList<CreateVariacaoProdutoRequest>? UniformesEscola { get; set; } = new List<CreateVariacaoProdutoRequest>();
 }

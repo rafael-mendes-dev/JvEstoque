@@ -1,7 +1,6 @@
 ﻿using JvEstoque.Api.Common.Api;
 using JvEstoque.Api.Endpoints.Escolas;
 using JvEstoque.Api.Endpoints.Estoques;
-using JvEstoque.Api.Endpoints.ItemPedidos;
 using JvEstoque.Api.Endpoints.Pedidos;
 using JvEstoque.Api.Endpoints.Produtos;
 using JvEstoque.Api.Endpoints.VariacaoProdutos;
@@ -27,12 +26,6 @@ public static class Endpoint
             .MapEndpoint<CreateEstoqueEndpoint>()
             .MapEndpoint<UpdateEstoqueEndpoint>();
         
-        endpoints.MapGroup("v1/itemPedidos").WithTags("ItemPedidos")
-            .MapEndpoint<CreateItemPedidoEndpoint>()
-            .MapEndpoint<UpdateItemPedidoEndpoint>()
-            .MapEndpoint<GetItemPedidoByIdEndpoint>()
-            .MapEndpoint<DeleteItemPedidoEndpoint>();
-        
         endpoints.MapGroup("v1/pedidos").WithTags("Pedidos")
             .MapEndpoint<CreatePedidoEndpoint>()
             .MapEndpoint<UpdatePedidoEndpoint>()
@@ -50,9 +43,9 @@ public static class Endpoint
         endpoints.MapGroup("v1/variacaoProdutos").WithTags("VariacaoProdutos")
             .MapEndpoint<CreateVariacaoProdutoEndpoint>()
             .MapEndpoint<DeleteVariacaoProdutoEndpoint>()
+            .MapEndpoint<GetAllVariacoesProdutosEndpoint>()
             .MapEndpoint<GetAllVariacoesProdutosByEscolaIdEndpoint>()
             .MapEndpoint<GetAllVariacoesProdutosByProdutoIdEndpoint>()
-            .MapEndpoint<GetAllVariacoesProdutosEndpoint>()
             .MapEndpoint<GetVariacaoProdutoByIdEndpoint>()
             .MapEndpoint<UpdateVariacaoProdutoEndpoint>();
     }

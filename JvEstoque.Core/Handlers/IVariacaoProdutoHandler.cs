@@ -11,6 +11,6 @@ public interface IVariacaoProdutoHandler
     Task<Response<VariacaoProduto?>> DeleteAsync(DeleteVariacaoProdutoRequest request);
     Task<Response<VariacaoProduto?>> GetByIdAsync(GetVariacaoProdutoByIdRequest request);
     Task<PagedResponse<List<VariacaoProduto>>> GetAllAsync(GetAllVariacoesProdutosRequest request);
-    Task<Response<List<VariacaoProduto>>> GetAllByProdutoIdAsync(GetAllVariacoesProdutosByProdutoIdRequest request);
-    Task<Response<List<VariacaoProduto>>> GetAllByEscolaIdAsync(GetAllVariacoesProdutosByEscolaIdRequest request);
+    Task<PagedResponse<List<VariacaoProduto>>> GetAllByProdutoIdAsync(GetAllVariacoesProdutosByProdutoIdRequest request);
+    Task<PagedResponse<List<VariacaoProduto>>> GetAllByEscolaIdAsync(GetAllVariacoesProdutosByEscolaIdRequest request);
 }

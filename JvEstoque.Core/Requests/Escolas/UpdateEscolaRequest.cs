@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using JvEstoque.Core.Requests.VariacoesProdutos;
 
 namespace JvEstoque.Core.Requests.Escolas;
@@ -16,5 +17,6 @@ public class UpdateEscolaRequest
     [Phone(ErrorMessage = "Telefone inválido.")]
     public string? Telefone { get; set; }
     
+    [JsonIgnore]
     public IList<CreateVariacaoProdutoRequest>? UniformesEscola { get; set; } = new List<CreateVariacaoProdutoRequest>();
 }

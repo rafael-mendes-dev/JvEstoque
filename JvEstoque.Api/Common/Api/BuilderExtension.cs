@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using JvEstoque.Api.Data;
 using JvEstoque.Api.Handlers;
 using JvEstoque.Core;
 using JvEstoque.Core.Handlers;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Common.Api
@@ -21,6 +23,14 @@ namespace JvEstoque.Api.Common.Api
         {
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(x => { x.CustomSchemaIds(type => type.FullName); });
+        }
+        
+        public static void AddJsonOptions(this WebApplicationBuilder builder)
+        {
+            builder.Services.Configure<JsonOptions>(options =>
+            {
+                options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
         }
 
         public static void AddSecurity(this WebApplicationBuilder builder)
@@ -47,7 +57,6 @@ namespace JvEstoque.Api.Common.Api
             builder.Services.AddScoped<IProdutoHandler, ProdutoHandler>();
             builder.Services.AddScoped<IEscolaHandler, EscolaHandler>();
             builder.Services.AddScoped<IEstoqueHandler, EstoqueHandler>();
-            builder.Services.AddScoped<IItemPedidoHandler, ItemPedidoHandler>();
         }
     }
 }

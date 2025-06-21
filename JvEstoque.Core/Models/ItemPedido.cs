@@ -12,5 +12,5 @@ public class ItemPedido
     public int Quantidade { get; set; }
     public decimal ValorUnitario { get; set; }
     
-    public decimal SubTotal { get; set; }
+    public decimal SubTotal => Quantidade * ValorUnitario;
 }

@@ -11,7 +11,7 @@ namespace JvEstoque.Api.Endpoints.VariacaoProdutos;
 public class GetAllVariacoesProdutosByProdutoIdEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
-    => app.MapGet("/{produtoId:int}", HandleAsync)
+    => app.MapGet("/produtos/{produtoId:int}", HandleAsync)
         .WithName("VariacaoProdutos : GetAllByProdutoId")
         .WithSummary("Obtém todas as variações de produto por ID do produto")
         .WithDescription("Obtém todas as variações de produto associadas a um produto específico pelo ID")

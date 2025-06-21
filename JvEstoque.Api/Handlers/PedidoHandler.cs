@@ -13,19 +13,29 @@ public class PedidoHandler(AppDbContext context) : IPedidoHandler
     {
         try
         {
+            var variacaoProdutos = request.Itens.Select(i => i.VariacaoProdutoId).ToList();
+            
+            var precosVariacoes = await context.VariacoesProdutos
+                .AsNoTracking()
+                .Include(v => v.Produto)
+                .Where(v => variacaoProdutos.Contains(v.Id))
+                .ToDictionaryAsync(v => v.Id, v => v.Produto.Preco);
+            
+            var itensPedido = request.Itens.Select(i => new ItemPedido
+            {
+                VariacaoProdutoId = i.VariacaoProdutoId,
+                Quantidade = i.Quantidade,
+                ValorUnitario = precosVariacoes.GetValueOrDefault(i.VariacaoProdutoId)
+            }).ToList();
+            
             var pedido = new Pedido
             {
                 DataPedido = request.DataPedido ?? DateTime.Now,
                 NomeCliente = request.NomeCliente,
                 TelefoneCliente = request.TelefoneCliente,
                 Status = request.Status,
-                Itens = request.Itens.Select(i => new ItemPedido
-                {
-                    VariacaoProdutoId = i.VariacaoProdutoId,
-                    Quantidade = i.Quantidade,
-                    ValorUnitario = i.ValorUnitario
-                }).ToList(),
-                ValorTotal = request.Itens.Sum(i => i.ValorUnitario * i.Quantidade),
+                Itens = itensPedido,
+                ValorTotal = itensPedido.Sum(i => i.SubTotal),
             };
             
             await context.Pedidos.AddAsync(pedido);
@@ -43,21 +53,34 @@ public class PedidoHandler(AppDbContext context) : IPedidoHandler
     {
         try
         {
-            var pedido = await context.Pedidos.FindAsync(request.Id);
+            var pedido = await context.Pedidos.Include(p => p.Itens)
+                .FirstOrDefaultAsync(p => p.Id == request.Id);
+            
             if (pedido == null)
                 return new Response<Pedido?>(null, 404, "Pedido não encontrado.");
+            
+            var variacaoIds = request.Itens.Select(i => i.VariacaoProdutoId).ToList();
+            var precosVariacoes = await context.VariacoesProdutos
+                .AsNoTracking()
+                .Include(v => v.Produto)
+                .Where(v => variacaoIds.Contains(v.Id))
+                .ToDictionaryAsync(v => v.Id, v => v.Produto.Preco);
+
+            context.ItensPedidos.RemoveRange(pedido.Itens);
+            
+            var itens = request.Itens.Select(i => new ItemPedido
+            {
+                VariacaoProdutoId = i.VariacaoProdutoId,
+                Quantidade = i.Quantidade,
+                ValorUnitario = precosVariacoes.GetValueOrDefault(i.VariacaoProdutoId)
+            }).ToList();
             
             pedido.DataPedido = request.DataPedido ?? pedido.DataPedido;
             pedido.NomeCliente = request.NomeCliente;
             pedido.TelefoneCliente = request.TelefoneCliente;
             pedido.Status = request.Status;
-            pedido.Itens = request.Itens.Select(i => new ItemPedido
-            {
-                VariacaoProdutoId = i.VariacaoProdutoId,
-                Quantidade = i.Quantidade,
-                ValorUnitario = i.ValorUnitario
-            }).ToList();
-            pedido.ValorTotal = request.Itens.Sum(i => i.ValorUnitario * i.Quantidade);
+            pedido.Itens = itens;
+            pedido.ValorTotal = itens.Sum(i => i.SubTotal);
             
             context.Pedidos.Update(pedido);
             await context.SaveChangesAsync();

@@ -16,7 +16,6 @@ public class VariacaoProduto
     public string Cor { get; set; } = null!;
     public string? Tecido { get; set; }
     public EGenero Genero { get; set; }
-    public string? FotoUrl { get; set; }
 
     public int EstoqueId { get; set; }
     public Estoque Estoque { get; set; } = null!;

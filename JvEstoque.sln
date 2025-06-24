@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JvEstoque.Core", "JvEstoque
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JvEstoque.Api", "JvEstoque.Api\JvEstoque.Api.csproj", "{A3158E5B-5FE4-47FE-8A4C-A099A6B96C3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JvEstoque.Web", "JvEstoque.Web\JvEstoque.Web.csproj", "{16723211-8D3E-4EF6-9EE3-F64C89287ADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{A3158E5B-5FE4-47FE-8A4C-A099A6B96C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3158E5B-5FE4-47FE-8A4C-A099A6B96C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3158E5B-5FE4-47FE-8A4C-A099A6B96C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16723211-8D3E-4EF6-9EE3-F64C89287ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16723211-8D3E-4EF6-9EE3-F64C89287ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16723211-8D3E-4EF6-9EE3-F64C89287ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16723211-8D3E-4EF6-9EE3-F64C89287ADF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

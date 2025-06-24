@@ -1,3 +1,4 @@
+using JvEstoque.Api;
 using JvEstoque.Api.Common.Api;
 using JvEstoque.Api.Endpoints;
 
@@ -12,8 +13,11 @@ builder.AddServices();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+    app.ConfigureDevEnvironment();
+
+app.UseCors(ApiConfiguration.CorsPolicyName);
+app.UseSecurity();
 app.MapEndpoints();
 
 app.Run();

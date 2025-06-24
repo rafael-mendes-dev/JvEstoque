@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dima.Api.Data.Mappings.Identity;
+namespace JvEstoque.Api.Data.Mappings.Identity;
 
 public class IdentityUserRoleMapping : IEntityTypeConfiguration<IdentityUserRole<int>>
 {

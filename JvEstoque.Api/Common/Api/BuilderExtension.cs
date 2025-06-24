@@ -5,9 +5,11 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using JvEstoque.Api.Data;
 using JvEstoque.Api.Handlers;
+using JvEstoque.Api.Models;
 using JvEstoque.Core;
 using JvEstoque.Core.Handlers;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Common.Api
@@ -17,6 +19,8 @@ namespace JvEstoque.Api.Common.Api
         public static void AddConfiguration(this WebApplicationBuilder builder)
         {
             Configuration.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
+            Configuration.BackendUrl = builder.Configuration.GetValue<string>("BackendUrl") ?? string.Empty;
+            Configuration.FrontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? string.Empty;
         }
 
         public static void AddDocumentation(this WebApplicationBuilder builder)
@@ -36,17 +40,30 @@ namespace JvEstoque.Api.Common.Api
         public static void AddSecurity(this WebApplicationBuilder builder)
         {
             // Adicionar configuracoes de segurança, como autenticação e autorização
+            builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+            builder.Services.AddAuthorization();
         }
 
         public static void AddDataContexts(this WebApplicationBuilder builder)
         {
             // Adicionar o DbContext e outras configurações de acesso a dados
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+            builder.Services.AddIdentityCore<User>().AddRoles<IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>().AddApiEndpoints();
         }
 
         public static void AddCrossOrigin(this WebApplicationBuilder builder)
         {
             // Configurar CORS para permitir requisições de diferentes origens
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(ApiConfiguration.CorsPolicyName,builder =>
+                {
+                    builder.WithOrigins([Configuration.BackendUrl, Configuration.FrontendUrl])
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+                });
+            });
         }
         
         public static void AddServices(this WebApplicationBuilder builder)

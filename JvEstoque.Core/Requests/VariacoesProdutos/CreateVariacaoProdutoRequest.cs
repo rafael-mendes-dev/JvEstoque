@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JvEstoque.Core.Enums;
+using JvEstoque.Core.Requests.Estoques;
 
 namespace JvEstoque.Core.Requests.VariacoesProdutos;
 
@@ -24,4 +25,6 @@ public class CreateVariacaoProdutoRequest
      
      [Required(ErrorMessage = "O gênero é obrigatório.")]
      public EGenero Genero { get; set; } = EGenero.Unissex;
+     
+     public CreateEstoqueRequest Estoque { get; set; } = new();
  }

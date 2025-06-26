@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace JvEstoque.Core.Requests.Estoques;
 
 public class CreateEstoqueRequest
 {
-    [Required(ErrorMessage = "O ID do produto é obrigatório.")]
+    [JsonIgnore]
     public int VariacaoProdutoId { get; set; }
     
     [Required(ErrorMessage = "A quantidade é obrigatória.")]

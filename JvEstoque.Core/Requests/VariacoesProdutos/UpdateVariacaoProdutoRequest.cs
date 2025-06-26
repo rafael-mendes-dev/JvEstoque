@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JvEstoque.Core.Enums;
+using JvEstoque.Core.Requests.Estoques;
 
 namespace JvEstoque.Core.Requests.VariacoesProdutos;
 
@@ -28,5 +29,5 @@ public class UpdateVariacaoProdutoRequest
     public EGenero Genero { get; set; } = EGenero.Unissex;
      
     [Range(0, int.MaxValue, ErrorMessage = "A quantidade no estoque deve ser maior que zero.")]
-    public int Estoque { get; set; } = 0;
+    public UpdateEstoqueRequest Estoque { get; set; } = new();
 }

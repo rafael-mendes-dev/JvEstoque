@@ -1,6 +1,5 @@
 ﻿using JvEstoque.Api.Common.Api;
 using JvEstoque.Api.Endpoints.Escolas;
-using JvEstoque.Api.Endpoints.Estoques;
 using JvEstoque.Api.Endpoints.Identity;
 using JvEstoque.Api.Endpoints.Pedidos;
 using JvEstoque.Api.Endpoints.Produtos;
@@ -32,11 +31,6 @@ public static class Endpoint
             .MapEndpoint<GetAllEscolasEndpoint>()
             .MapEndpoint<GetEscolaByIdEndpoint>()
             .MapEndpoint<UpdateEscolaEndpoint>();
-        
-        endpoints.MapGroup("v1/estoques").WithTags("Estoques")
-            .RequireAuthorization()
-            .MapEndpoint<CreateEstoqueEndpoint>()
-            .MapEndpoint<UpdateEstoqueEndpoint>();
         
         endpoints.MapGroup("v1/pedidos").WithTags("Pedidos")
             .RequireAuthorization()

@@ -26,8 +26,8 @@ public class Configuration
             AppbarText = Colors.Shades.Black,
             TextPrimary = Colors.Shades.Black,
             TextSecondary = "#222325",
-            DrawerText = Colors.Shades.White,
-            DrawerBackground = Colors.Orange.Darken3
+            DrawerText = Colors.Shades.Black,
+            DrawerBackground = "#1F59A2"
         },
         PaletteDark = new PaletteDark
         {
@@ -36,7 +36,9 @@ public class Configuration
             AppbarBackground = "#F27400",
             AppbarText = Colors.Shades.Black,
             PrimaryContrastText = "#000000",
-            Background = "#19191B"
+            Background = "#19191B",
+            DrawerText = Colors.Shades.Black,
+            DrawerBackground = "#F27400"
         }
     };
 }

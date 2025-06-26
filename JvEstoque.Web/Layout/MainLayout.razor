@@ -8,12 +8,14 @@
 <AuthorizeView>
     <Authorized>
         <MudLayout>
-            <MudAppBar>
+            <MudAppBar Elevation="1">
+                <MudButton StartIcon="@(_isDrawerOpened ? Icons.Material.Rounded.MenuOpen : Icons.Material.Rounded.Menu)" 
+                           OnClick="ToggleDrawer"/>
                 <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home">
                     JV ESTOQUE
                 </MudButton>
                 <MudSpacer/>
-                <MudButton Href="/estoque" StartIcon="@Icons.Material.Rounded.Dataset">
+                <MudButton Href="/estoque" StartIcon="@Icons.Material.Rounded.Inventory2">
                     Estoque
                 </MudButton>
                 <MudSpacer/>
@@ -21,12 +23,23 @@
                     DashBoard
                 </MudButton>
                 <MudSpacer/>
-                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.RequestPage">
+                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.Receipt">
                     Pedidos
                 </MudButton>
                 <MudSpacer/>
+                <MudButton Href="/sair" StartIcon="@Icons.Material.Rounded.Logout">
+                    Sair
+                </MudButton>
                 <MudSwitch Color="Color.Inherit" @bind-Value="_isDarkMode" T="bool" ThumbIcon="@Icons.Material.Rounded.Lightbulb" Class="ma-4"/>
             </MudAppBar>
+            <MudDrawer @bind-Open="_isDrawerOpened" Elevation="1" Variant="DrawerVariant.Temporary" Overlay="true">
+                <MudDrawerHeader>
+                    <MudButton>Menu</MudButton>
+                    <MudSpacer/>
+                    <MudButton StartIcon="@(_isDrawerOpened ? Icons.Material.Rounded.MenuOpen : Icons.Material.Rounded.Menu)" OnClick="ToggleDrawer"/>
+                </MudDrawerHeader>
+                <NavMenu/>
+            </MudDrawer>
             <MudMainContent>
                 <MudContainer Class="mt-4" MaxWidth="MaxWidth.Large">
                     @Body
@@ -42,6 +55,7 @@
 @code{
     
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    private bool _isDrawerOpened = false;
     private bool _isDarkMode = true;
     private MudThemeProvider _mudThemeProvider = null!;
 
@@ -62,4 +76,6 @@
         return Task.CompletedTask;
     }
     
+    private void ToggleDrawer() =>
+        _isDrawerOpened = !_isDrawerOpened;
 }

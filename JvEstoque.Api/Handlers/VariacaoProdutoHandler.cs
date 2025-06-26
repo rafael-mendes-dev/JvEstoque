@@ -13,6 +13,16 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
+            var estoque = new Estoque
+            {
+                Quantidade = request.Estoque.Quantidade
+            };
+            var escola = await context.Escolas.FindAsync(request.EscolaId);
+            if (escola == null)
+                return new Response<VariacaoProduto?>(null, 404, "Escola não encontrada.");
+            var produto = await context.Produtos.FindAsync(request.ProdutoId);
+            if (produto == null)
+                return new Response<VariacaoProduto?>(null, 404, "Produto não encontrado.");
             var variacaoProduto = new VariacaoProduto
             {
                 Sku = request.Sku,
@@ -22,6 +32,9 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
                 Cor = request.Cor,
                 Tecido = request.Tecido,
                 Genero = request.Genero,
+                Estoque = estoque,
+                Escola = escola,
+                Produto = produto
             };
             
             await context.VariacoesProdutos.AddAsync(variacaoProduto);
@@ -39,8 +52,10 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
-            var variacaoProduto = await context.VariacoesProdutos.FindAsync(request.Id);
-            
+            var variacaoProduto = await context.VariacoesProdutos
+                .Include(v => v.Estoque)
+                .FirstOrDefaultAsync(v => v.Id == request.Id);
+
             if (variacaoProduto == null)
                 return new Response<VariacaoProduto?>(null, 404, "Variação de produto não encontrada.");
             
@@ -51,6 +66,7 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
             variacaoProduto.Cor = request.Cor;
             variacaoProduto.Tecido = request.Tecido;
             variacaoProduto.Genero = request.Genero;
+            variacaoProduto.Estoque.Quantidade = request.Estoque.Quantidade;
 
             context.VariacoesProdutos.Update(variacaoProduto);
             await context.SaveChangesAsync();
@@ -67,7 +83,7 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
-            var variacaoProduto = await context.VariacoesProdutos.FindAsync(request.Id);
+            var variacaoProduto = await context.VariacoesProdutos.Include(v => v.Estoque).FirstOrDefaultAsync(v => v.Id == request.Id);
             
             if (variacaoProduto == null)
                 return new Response<VariacaoProduto?>(null, 404, "Variação de produto não encontrada.");
@@ -87,7 +103,9 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
-            var variacaoProduto = await context.VariacoesProdutos.FindAsync(request.Id);
+            var variacaoProduto = await context.VariacoesProdutos.AsNoTracking().Include(v => v.Estoque)
+                .Include(v => v.Escola)
+                .Include(v => v.Produto).FirstOrDefaultAsync(v => v.Id ==request.Id);
             
             return variacaoProduto is null
                 ? new Response<VariacaoProduto?>(null, 404, "Variação de produto não encontrada.")
@@ -103,7 +121,8 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
-            var query = context.VariacoesProdutos.AsNoTracking().OrderBy(e => e.Id);
+            var query = context.VariacoesProdutos.AsNoTracking().OrderBy(e => e.Id).Include(v => v.Estoque)
+                .Include(v => v.Escola).Include(v => v.Produto);
                 
             var variacaoProdutos = await query.Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
@@ -125,7 +144,7 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
         {
             var query = context.VariacoesProdutos
                 .Where(v => v.ProdutoId == request.ProdutoId)
-                .AsNoTracking();
+                .AsNoTracking().Include(v => v.Estoque).Include(v => v.Escola).Include(v => v.Produto);
             
             var totalCount = await query.CountAsync();
             
@@ -148,7 +167,7 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
         {
             var query = context.VariacoesProdutos
                 .Where(v => v.EscolaId == request.EscolaId)
-                .AsNoTracking();
+                .AsNoTracking().Include(v => v.Estoque).Include(v => v.Escola).Include(v => v.Produto);
             
             var totalCount = await query.CountAsync();
             

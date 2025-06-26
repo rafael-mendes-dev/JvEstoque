@@ -19,10 +19,10 @@ public class Configuration
         },
         PaletteLight = new PaletteLight
         {
-            Primary = "#BD4400",
-            Secondary = Colors.Orange.Darken3,
-            Background = "#B2B3BD",
-            AppbarBackground = "#BD4400",
+            Primary = "#1F59A2",
+            Secondary = Colors.Blue.Darken3,
+            Background = "#EEEEF0",
+            AppbarBackground = "#1F59A2",
             AppbarText = Colors.Shades.Black,
             TextPrimary = Colors.Shades.Black,
             TextSecondary = "#222325",
@@ -31,11 +31,12 @@ public class Configuration
         },
         PaletteDark = new PaletteDark
         {
-            Primary = "#A25734",
+            Primary = "#F27400",
             Secondary = Colors.Orange.Lighten3,
-            AppbarBackground = "#A25734",
+            AppbarBackground = "#F27400",
             AppbarText = Colors.Shades.Black,
-            PrimaryContrastText = "#000000"
+            PrimaryContrastText = "#000000",
+            Background = "#19191B"
         }
     };
 }

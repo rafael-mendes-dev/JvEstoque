@@ -1,16 +1,62 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudThemeProvider @ref="_mudThemeProvider" @bind-IsDarkMode="_isDarkMode" Theme="Configuration.Theme"/>
+<MudSnackbarProvider/>
+<MudDialogProvider/>
+<MudPopoverProvider/>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar>
+                <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home">
+                    JV ESTOQUE
+                </MudButton>
+                <MudSpacer/>
+                <MudButton Href="/estoque" StartIcon="@Icons.Material.Rounded.Dataset">
+                    Estoque
+                </MudButton>
+                <MudSpacer/>
+                <MudButton Href="/dasboard" StartIcon="@Icons.Material.Rounded.Dashboard">
+                    DashBoard
+                </MudButton>
+                <MudSpacer/>
+                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.RequestPage">
+                    Pedidos
+                </MudButton>
+                <MudSpacer/>
+                <MudSwitch Color="Color.Inherit" @bind-Value="_isDarkMode" T="bool" ThumbIcon="@Icons.Material.Rounded.Lightbulb" Class="ma-4"/>
+            </MudAppBar>
+            <MudMainContent>
+                <MudContainer Class="mt-4" MaxWidth="MaxWidth.Large">
+                    @Body
+                </MudContainer>
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+</AuthorizeView>
+
+@code{
+    
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    private bool _isDarkMode = true;
+    private MudThemeProvider _mudThemeProvider = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemDarkModeAsync();
+            await _mudThemeProvider.WatchSystemDarkModeAsync(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
+    }
+
+    private Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isDarkMode = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    
+}

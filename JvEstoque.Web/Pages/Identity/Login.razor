@@ -1,0 +1,33 @@
+﻿@page "/entrar"
+@layout HeadlessLayout
+@inherits LoginPage
+
+<MudGrid Justify="Justify.Center" Class="d-flex align-center" Style="height: 100vh;">
+    <MudItem xs="12" sm="12" md="8" lg="6" xl="6" xxl="6">
+        <MudPaper Class="mud-width-full pa-8">
+            <div class="d-flex flex-column align-center justify-center pb-8 pt-8">
+                <MudText Typo="Typo.h5">JV ESTOQUE</MudText>
+                <br/>
+                <MudText Typo="Typo.subtitle1">Sistema para gerenciamento de estoque</MudText>
+            </div>
+            <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+                <DataAnnotationsValidator/>
+
+                <MudTextField T="string" Label="E-mail" HelperText="Campo obrigatório" InputType="InputType.Email" For="@(() => InputModel.Email)" @bind-Value="InputModel.Email"/>
+                <MudTextField T="string" Label="Senha" HelperText="Campo obrigatório" InputType="InputType.Password" For="@(() => InputModel.Password)" @bind-Value="InputModel.Password"/>
+                <div class="d-flex mt-8">
+                    @if (IsBusy)
+                    {
+                        <MudProgressCircular Color="Color.Info" Indeterminate="true"/>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-center justify-center flex-grow-1">
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">ENTRAR</MudButton>
+                        </div>
+                    }
+                </div>
+            </EditForm>
+        </MudPaper>
+    </MudItem>
+</MudGrid>

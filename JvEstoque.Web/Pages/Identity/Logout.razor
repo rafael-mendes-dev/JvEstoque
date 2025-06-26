@@ -1,0 +1,22 @@
+﻿@page "/sair"
+@inherits LogoutPage
+@layout HeadlessLayout
+
+<PageTitle>JV - Sair</PageTitle>
+
+<MudText Typo="Typo.h3">Finalizando Sessão...</MudText>
+<MudPaper Class="pa-8 mt-4">
+    <div class="d-flex flex-column align-center justify-center pb-8 pt-8">
+        <MudText Typo="Typo.h5">JV ESTOQUE</MudText>
+        <br/>
+        <MudText Typo="Typo.subtitle1">Sistema para gerenciamento de estoque</MudText>
+    </div>
+    <MudAlert Severity="Severity.Info">
+        <div>
+            Sessão Finalizada...
+            <MudButton Variant="Variant.Text" Href="/entrar">
+                IR PARA A PÁGINA DE LOGIN
+            </MudButton>
+        </div>
+    </MudAlert>
+</MudPaper>

@@ -21,24 +21,26 @@ public class Configuration
         {
             Primary = "#1F59A2",
             Secondary = Colors.Blue.Darken3,
-            Background = "#EEEEF0",
-            AppbarBackground = "#1F59A2",
+            Background = "#f1f5f9", // "#EEEEF0"
+            AppbarBackground = Colors.Shades.White, // "#1F59A2"
             AppbarText = Colors.Shades.Black,
             TextPrimary = Colors.Shades.Black,
             TextSecondary = "#222325",
             DrawerText = Colors.Shades.Black,
-            DrawerBackground = "#1F59A2"
+            DrawerBackground = Colors.Shades.White
         },
         PaletteDark = new PaletteDark
         {
             Primary = "#F27400",
             Secondary = Colors.Orange.Lighten3,
-            AppbarBackground = "#F27400",
-            AppbarText = Colors.Shades.Black,
+            AppbarBackground = Colors.Shades.Black, // "#F27400"
+            AppbarText = Colors.Shades.White,
             PrimaryContrastText = "#000000",
-            Background = "#19191B",
-            DrawerText = Colors.Shades.Black,
-            DrawerBackground = "#F27400"
+            DrawerText = Colors.Shades.White,
+            DrawerBackground = Colors.Shades.Black, //"#342E6E"
+            Background = Colors.Shades.Black,
+            TextPrimary = Colors.Shades.White,
+            BackgroundGray = Colors.Shades.White
         }
     };
 }

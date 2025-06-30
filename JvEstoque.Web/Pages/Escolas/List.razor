@@ -1,0 +1,39 @@
+﻿@page "/escolas"
+@inherits ListEscolasPage
+
+<MudText Typo="Typo.h3" Style="background: linear-gradient(90deg, orange, mediumblue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">
+    Escolas
+</MudText>
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled"  Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add">NOVA ESCOLA</MudButton>
+</div>
+
+<MudDataGrid Class="mt-4" Items="@Escolas" Filterable="false" Hideable="true" ShowFilterIcons="true" Style="@()">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Escolas</MudText>
+        <MudSpacer/>
+        <MudTextField
+            @bind-Value="SearchTerm"
+            Placeholder="Filtrar..."
+            Adornment="Adornment.Start"
+            AdornmentIcon="@Icons.Material.Rounded.Search"
+            Immediate="true"
+            IconSize="Size.Medium"
+            Class="mt-0">
+        </MudTextField>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="#"/>
+        <PropertyColumn Property="x => x.Nome" Title="Nome"/>
+        <PropertyColumn Property="x => x.Endereco" Title="Endereço"/>
+        <PropertyColumn Property="x => x.Telefone" Title="Telefone"/>
+        <TemplateColumn Title="Ações">
+            <CellTemplate>
+                <MudStack Row>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Edit" Color="Color.Primary" OnClick="() => OnEditButtonClickedAsync(context.Item.Id)"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error" aria-label="Excluir" OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)"></MudIconButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>

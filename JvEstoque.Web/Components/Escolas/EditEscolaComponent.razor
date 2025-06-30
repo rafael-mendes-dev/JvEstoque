@@ -1,0 +1,20 @@
+﻿@inherits EditEscolaPageBase
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+            <DataAnnotationsValidator />
+            <MudTextField @bind-Value="InputModel.Nome" Label="Nome da Escola" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
+            <MudTextField @bind-Value="InputModel.Endereco" Label="Endereço da Escola" HelperText="Campo obrigatório" For="() => InputModel.Endereco"/>
+            <MudTextField @bind-Value="InputModel.Telefone" Label="Telefone da Escola" HelperText="Campo obrigatório" For="() => InputModel.Telefone"/>
+            @if (IsBusy)
+            {
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+            }
+            else
+            {
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Salvar</MudButton>
+            }
+        </EditForm>
+    </DialogContent>
+</MudDialog>

@@ -21,10 +21,6 @@ public class CreateProdutoRequest
     [StringLength(250, ErrorMessage = "A descrição não pode exceder 500 caracteres.")]
     public string? Descricao { get; set; }
     
-    [Required(ErrorMessage = "A quantidade em estoque é obrigatória.")] 
-    [Range(1, int.MaxValue, ErrorMessage = "A quantidade em estoque deve ser maior que 0.")]
-    public int QuantidadeEstoque { get; set; } = 1;
-    
     [JsonIgnore]
     public IList<CreateVariacaoProdutoRequest>? Variacoes { get; set; } = new List<CreateVariacaoProdutoRequest>();
 }

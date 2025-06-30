@@ -32,7 +32,6 @@ builder.Services.AddHttpClient(Configuration.HttpClientName, client =>
 builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 builder.Services.AddTransient<IEscolaHandler, EscolaHandler>();
 builder.Services.AddTransient<IProdutoHandler, ProdutoHandler>();
-builder.Services.AddTransient<IEstoqueHandler, EstoqueHandler>();
 builder.Services.AddTransient<IPedidoHandler, PedidoHandler>();
 builder.Services.AddTransient<IVariacaoProdutoHandler, VariacaoProdutoHandler>();
 

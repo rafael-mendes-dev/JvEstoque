@@ -16,6 +16,6 @@ public class PedidoMapping : IEntityTypeConfiguration<Pedido>
         builder.Property(p => p.DataPedido).IsRequired();
         builder.Property(p => p.ValorTotal).IsRequired().HasColumnType("MONEY").HasDefaultValue(0);
         
-        builder.HasMany(p => p.Itens).WithOne(p => p.Pedido).HasForeignKey(p => p.PedidoId);
+        builder.HasMany(p => p.Itens).WithOne(p => p.Pedido).HasForeignKey(p => p.PedidoId).OnDelete(DeleteBehavior.Cascade);
     }
 }

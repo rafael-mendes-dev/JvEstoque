@@ -22,6 +22,6 @@ public class ItemPedidoMapping : IEntityTypeConfiguration<ItemPedido>
         builder.HasOne(ip => ip.VariacaoProduto)
             .WithMany(vp => vp.ItensPedidos)
             .HasForeignKey(ip => ip.VariacaoProdutoId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

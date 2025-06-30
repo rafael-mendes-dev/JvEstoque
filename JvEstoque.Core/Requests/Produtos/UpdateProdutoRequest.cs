@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using JvEstoque.Core.Enums;
 using JvEstoque.Core.Requests.VariacoesProdutos;
 
@@ -22,5 +23,6 @@ public class UpdateProdutoRequest
     [StringLength(500, ErrorMessage = "A descrição não pode exceder 500 caracteres.")]
     public string? Descricao { get; set; }
     
+    [JsonIgnore]
     public IList<CreateVariacaoProdutoRequest>? Variacoes { get; set; } = new List<CreateVariacaoProdutoRequest>();
 }

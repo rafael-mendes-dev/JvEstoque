@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using JvEstoque.Core.Enums;
 using JvEstoque.Core.Requests.VariacoesProdutos;
 
@@ -24,6 +25,6 @@ public class CreateProdutoRequest
     [Range(1, int.MaxValue, ErrorMessage = "A quantidade em estoque deve ser maior que 0.")]
     public int QuantidadeEstoque { get; set; } = 1;
     
-    
+    [JsonIgnore]
     public IList<CreateVariacaoProdutoRequest>? Variacoes { get; set; } = new List<CreateVariacaoProdutoRequest>();
 }

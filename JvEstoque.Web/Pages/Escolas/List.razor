@@ -1,14 +1,14 @@
 ﻿@page "/escolas"
 @inherits ListEscolasPage
 
-<MudText Typo="Typo.h3" Style="background: linear-gradient(90deg, orange, mediumblue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">
+<MudText Typo="Typo.h3" Color="Color.Primary">
     Escolas
 </MudText>
 <div class="d-flex justify-end">
-    <MudButton Variant="Variant.Filled"  Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add">NOVA ESCOLA</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVA ESCOLA</MudButton>
 </div>
 
-<MudDataGrid Class="mt-4" Items="@Escolas" Filterable="false" Hideable="true" ShowFilterIcons="true" Style="@()">
+<MudDataGrid Class="mt-4" Items="@Escolas" Filterable="false" Hideable="true" ShowFilterIcons="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Escolas</MudText>
         <MudSpacer/>

@@ -19,13 +19,13 @@ public class Configuration
         },
         PaletteLight = new PaletteLight
         {
-            Primary = "#1F59A2",
+            Primary = "#3D63DD",
             Secondary = Colors.Blue.Darken3,
             Background = "#f1f5f9", // "#EEEEF0"
             AppbarBackground = Colors.Shades.White, // "#1F59A2"
             AppbarText = Colors.Shades.Black,
             TextPrimary = Colors.Shades.Black,
-            TextSecondary = "#222325",
+            TextSecondary = Colors.Shades.Black,
             DrawerText = Colors.Shades.Black,
             DrawerBackground = Colors.Shades.White
         },
@@ -33,14 +33,10 @@ public class Configuration
         {
             Primary = "#F27400",
             Secondary = Colors.Orange.Lighten3,
-            AppbarBackground = Colors.Shades.Black, // "#F27400"
             AppbarText = Colors.Shades.White,
-            PrimaryContrastText = "#000000",
             DrawerText = Colors.Shades.White,
-            DrawerBackground = Colors.Shades.Black, //"#342E6E"
-            Background = Colors.Shades.Black,
             TextPrimary = Colors.Shades.White,
-            BackgroundGray = Colors.Shades.White
+            BackgroundGray = Colors.Shades.White,
         }
     };
 }

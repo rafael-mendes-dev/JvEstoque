@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using System.Threading.Tasks;
 using JvEstoque.Api.Data;
 using JvEstoque.Api.Handlers;
@@ -10,6 +11,7 @@ using JvEstoque.Core;
 using JvEstoque.Core.Handlers;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Common.Api
@@ -74,6 +76,22 @@ namespace JvEstoque.Api.Common.Api
             builder.Services.AddScoped<IProdutoHandler, ProdutoHandler>();
             builder.Services.AddScoped<IEscolaHandler, EscolaHandler>();
             builder.Services.AddScoped<IEstoqueHandler, EstoqueHandler>();
+        }
+
+        public static void ConfigureRateLimiter(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter(policyName: "fixed", limiterOptions =>
+                {
+                    limiterOptions.PermitLimit = 100; 
+                    limiterOptions.Window = TimeSpan.FromMinutes(1); 
+                    limiterOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                    limiterOptions.QueueLimit = 5; 
+                });
+                
+                options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            });
         }
     }
 }

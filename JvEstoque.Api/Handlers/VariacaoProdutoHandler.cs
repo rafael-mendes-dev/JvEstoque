@@ -3,10 +3,12 @@ using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.VariacoesProdutos;
 using JvEstoque.Core.Responses;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Handlers;
 
+[EnableRateLimiting("fixed")]
 public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHandler
 {
     public async Task<Response<VariacaoProduto?>> CreateAsync(CreateVariacaoProdutoRequest request)

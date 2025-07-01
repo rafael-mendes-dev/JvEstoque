@@ -3,12 +3,15 @@ using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.Estoques;
 using JvEstoque.Core.Responses;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Handlers;
 
+[EnableRateLimiting("fixed")]
 public class EstoqueHandler(AppDbContext context) : IEstoqueHandler
 {
+    
     public async Task<Response<Estoque?>> CreateAsync(CreateEstoqueRequest request)
     {
         try

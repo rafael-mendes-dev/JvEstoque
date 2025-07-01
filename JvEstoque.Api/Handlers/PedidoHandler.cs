@@ -3,10 +3,11 @@ using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.Pedidos;
 using JvEstoque.Core.Responses;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Handlers;
-
+[EnableRateLimiting("fixed")]
 public class PedidoHandler(AppDbContext context) : IPedidoHandler
 {
     public async Task<Response<Pedido?>> CreateAsync(CreatePedidoRequest request)

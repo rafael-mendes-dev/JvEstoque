@@ -3,10 +3,12 @@ using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
 using JvEstoque.Core.Requests.Escolas;
 using JvEstoque.Core.Responses;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace JvEstoque.Api.Handlers
 {
+    [EnableRateLimiting("fixed")]
     public class EscolaHandler (AppDbContext context) : IEscolaHandler
     {
         public async Task<Response<Escola?>> CreateAsync(CreateEscolaRequest request)

@@ -17,7 +17,8 @@ public class ProdutoHandler(AppDbContext context) : IProdutoHandler
             {
                 Nome = request.Nome,
                 Descricao = request.Descricao,
-                Preco = request.Preco
+                Preco = request.Preco,
+                Peca = request.Peca
             };
 
             await context.Produtos.AddAsync(produto);

@@ -1,16 +1,17 @@
-﻿@page "/escolas"
-@inherits ListEscolasPage
+﻿@page "/produtos"
+@using JvEstoque.Core.Enums
+@inherits ProdutosBase
 
 <MudText Typo="Typo.h3" Color="Color.Primary">
-    Escolas
+    Produtos
 </MudText>
 <div class="d-flex justify-end">
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVA ESCOLA</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVO PRODUTO</MudButton>
 </div>
 
-<MudDataGrid Class="mt-4" Items="@Escolas" Filterable="false" QuickFilter="Filter" Hideable="true" ShowFilterIcons="true">
+<MudDataGrid Class="mt-4" Items="@Produtos" Filterable="false" QuickFilter="Filter" Hideable="true" ShowFilterIcons="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Escolas</MudText>
+        <MudText Typo="Typo.h6">Produtos</MudText>
         <MudSpacer/>
         <MudTextField
             @bind-Value="SearchTerm"
@@ -25,8 +26,13 @@
     <Columns>
         <PropertyColumn Property="x => x.Id" Title="#"/>
         <PropertyColumn Property="x => x.Nome" Title="Nome"/>
-        <PropertyColumn Property="x => x.Endereco" Title="Endereço"/>
-        <PropertyColumn Property="x => x.Telefone" Title="Telefone"/>
+        <PropertyColumn Property="x => x.Descricao" Title="Descrição"/>
+        <PropertyColumn Property="x => x.Preco" Title="Preço" Format="C"/>
+        <TemplateColumn Title="Peça" Filterable="true">
+            <CellTemplate>
+                <MudChip>@(((EPeca)context.Item.Peca).ToString())</MudChip>
+            </CellTemplate>
+        </TemplateColumn>
         <TemplateColumn Title="Ações">
             <CellTemplate>
                 <MudStack Row>

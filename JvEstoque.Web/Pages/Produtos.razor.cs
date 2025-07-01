@@ -1,43 +1,42 @@
 ﻿using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
-using JvEstoque.Core.Requests.Escolas;
-using JvEstoque.Web.Components.Escolas;
+using JvEstoque.Core.Requests.Produtos;
+using JvEstoque.Web.Components.Produtos;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace JvEstoque.Web.Pages;
 
-public class ListEscolasPage : ComponentBase
+public partial class ProdutosBase : ComponentBase
 {
     #region Properties
 
-    public bool IsBusy { get; set; }
-    protected List<Escola> Escolas { get; set; } = [];
+    public bool IsBusy { get; set; } = false;
+    public List<Produto> Produtos { get; set; } = [];
+    public string SearchTerm { get; set; }
 
-    public string SearchTerm { get; set; } = string.Empty;
-    
     #endregion
-
+    
     #region Services
-
+    
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
-    [Inject] public IEscolaHandler Handler { get; set; } = null!;
-
+    [Inject] public IProdutoHandler Handler { get; set; } = null!;
+    
     #endregion
-
+    
     #region Overrides
-
+    
     protected override async Task OnInitializedAsync()
     {
         IsBusy = true;
 
         try
         {
-            var request = new GetAllEscolasRequest();
+            var request = new GetAllProdutosRequest();
             var result = await Handler.GetAllAsync(request);
             if (result.IsSucess)
-                Escolas = result.Data ?? [];
+                Produtos = result.Data ?? [];
             else
             {
                 Snackbar.Add(result.Message!, Severity.Error);
@@ -52,18 +51,18 @@ public class ListEscolasPage : ComponentBase
             IsBusy = false;
         }
     }
-
+    
     #endregion
-
+    
     #region Methods
-
+    
     public async Task OnDeleteButtonClickedAsync(int id, string title)
     {
         try
         {
             var result = await DialogService.ShowMessageBox(
                 "Confirmação",
-                $"Você tem certeza que deseja excluir a escola {title}?",
+                $"Você tem certeza que deseja excluir o produto {title}?",
                 yesText: "Sim",
                 cancelText: "Não"
             );
@@ -85,12 +84,12 @@ public class ListEscolasPage : ComponentBase
 
         try
         {
-            var request = new DeleteEscolaRequest{ Id = id};
+            var request = new DeleteProdutoRequest{ Id = id};
             var result = await Handler.DeleteAsync(request);
             if (result.IsSucess)
             {
-                Snackbar.Add($"Escola {title} excluída com sucesso!", Severity.Success);
-                Escolas.RemoveAll(e => e.Id == id);
+                Snackbar.Add($"Produto {title} excluído com sucesso!", Severity.Success);
+                Produtos.RemoveAll(e => e.Id == id);
             }
             else
             {
@@ -113,8 +112,8 @@ public class ListEscolasPage : ComponentBase
 
         try
         {
-            var dialogReference = await DialogService.ShowAsync<EditEscolaComponent>(
-                "Editar Escola",
+            var dialogReference = await DialogService.ShowAsync<EditProdutosComponent>(
+                "Editar Produto",
                 new DialogParameters { { "Id", id } },
                 new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraLarge }
             );
@@ -123,11 +122,11 @@ public class ListEscolasPage : ComponentBase
             
             if (result is not null)
             {
-                Snackbar.Add("Escola atualizada com sucesso!", Severity.Success);
-                var request = new GetAllEscolasRequest();
+                Snackbar.Add("Produto atualizado com sucesso!", Severity.Success);
+                var request = new GetAllProdutosRequest();
                 var response = await Handler.GetAllAsync(request);
                 if (response.IsSucess)
-                    Escolas = response.Data ?? [];
+                    Produtos = response.Data ?? [];
                 
                 StateHasChanged();
             }
@@ -149,24 +148,25 @@ public class ListEscolasPage : ComponentBase
 
         try
         {
-            var dialogReference = await DialogService.ShowAsync<CreateEscolaComponent>(
-                "Criar Escola",
+            var dialogReference = await DialogService.ShowAsync<CreateProdutoComponent>(
+                "Criar Produto",
                 new DialogParameters(),
                 new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraLarge }
             );
-
+            
             var result = await dialogReference.Result;
             
             if (result is not null)
             {
-                Snackbar.Add("Escola criada com sucesso!", Severity.Success);
-                var request = new GetAllEscolasRequest();
+                Snackbar.Add("Produto criado com sucesso!", Severity.Success);
+                var request = new GetAllProdutosRequest();
                 var response = await Handler.GetAllAsync(request);
                 if (response.IsSucess)
-                    Escolas = response.Data ?? [];
+                    Produtos = response.Data ?? [];
                 
                 StateHasChanged();
             }
+            
         }
         catch (Exception e)
         {
@@ -178,16 +178,17 @@ public class ListEscolasPage : ComponentBase
         }
     }
     
-    public Func<Escola, bool> Filter => escola =>
+    public Func<Produto, bool> Filter => produto =>
     {
         if (string.IsNullOrWhiteSpace(SearchTerm))
             return true;
 
-        return escola.Nome.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Endereco!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Telefone!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase);
+        return produto.Nome.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+               produto.Descricao!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+               produto.Peca.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+               produto.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+               produto.Preco.ToString("C").Contains(SearchTerm, StringComparison.OrdinalIgnoreCase);
     };
-
+    
     #endregion
 }

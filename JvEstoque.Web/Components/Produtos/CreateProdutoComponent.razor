@@ -1,0 +1,32 @@
+﻿@using JvEstoque.Core.Enums
+@inherits CreateProdutoComponentBase
+
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
+            <DataAnnotationsValidator/>
+            <MudTextField @bind-Value="InputModel.Nome" Label="Nome do Produto" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
+            <MudTextField @bind-Value="InputModel.Descricao" Label="Descrição do Produto" HelperText="Campo obrigatório" For="() => InputModel.Descricao"/>
+            <MudTextField @bind-Value="InputModel.Preco" T="decimal" Format="C" Variant="Variant.Text" Label="Preço do Produto" HelperText="Campo obrigatório" For="() => InputModel.Preco"/>
+            <MudSelect T="EPeca" Label="Tipo de peça" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Peca">
+                <MudSelectItem T="EPeca" Value="EPeca.Camiseta">Camiseta</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.CamisetaMangaLonga">Camiseta de Manga Longa</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.CalcaTradicional">Calça Tradicional</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.CalcaInverno">Calça de Inverno</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.Legging">Calça Legging</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.Shorts">Shorts/Saia</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.Blusa">Blusa</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.Jaqueta">Jaqueta</MudSelectItem>
+                <MudSelectItem T="EPeca" Value="EPeca.Outro">Outro</MudSelectItem>
+            </MudSelect>
+            @if (IsBusy)
+            {
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+            }
+            else
+            {
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Salvar</MudButton>
+            }
+        </EditForm>
+    </DialogContent>
+</MudDialog>

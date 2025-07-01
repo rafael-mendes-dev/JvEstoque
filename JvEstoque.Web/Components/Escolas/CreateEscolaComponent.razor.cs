@@ -15,8 +15,6 @@ public partial class CreateEscolaComponentBase : ComponentBase
     #endregion
 
     #region Parameters
-
-    [Parameter] public int Id { get; set; }
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IEscolaHandler Handler { get; set; } = null!;
     [CascadingParameter] IMudDialogInstance DialogInstance { get; set; } = null!;

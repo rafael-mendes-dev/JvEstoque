@@ -1,5 +1,4 @@
 ﻿@page "/produtos"
-@using JvEstoque.Core.Enums
 @inherits ProdutosBase
 
 <MudText Typo="Typo.h3" Color="Color.Primary">
@@ -30,7 +29,7 @@
         <PropertyColumn Property="x => x.Preco" Title="Preço" Format="C"/>
         <TemplateColumn Title="Peça" Filterable="true">
             <CellTemplate>
-                <MudChip>@(((EPeca)context.Item.Peca).ToString())</MudChip>
+                <MudChip Color="Color.Primary">@(((EPeca)context.Item.Peca).ToString().AdicionarEspacoAntesMaiuscula())</MudChip>
             </CellTemplate>
         </TemplateColumn>
         <TemplateColumn Title="Ações">

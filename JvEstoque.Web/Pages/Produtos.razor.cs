@@ -13,7 +13,9 @@ public partial class ProdutosBase : ComponentBase
 
     public bool IsBusy { get; set; } = false;
     public List<Produto> Produtos { get; set; } = [];
-    public string SearchTerm { get; set; }
+    public string SearchTerm { get; set; } = string.Empty;
+    public MudDataGrid<Produto> _grid = null!;
+    
 
     #endregion
     
@@ -22,37 +24,38 @@ public partial class ProdutosBase : ComponentBase
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
     [Inject] public IProdutoHandler Handler { get; set; } = null!;
+    [Inject] public NavigationManager NavigationManager { get; set; } = null!;
     
     #endregion
     
-    #region Overrides
-    
-    protected override async Task OnInitializedAsync()
-    {
-        IsBusy = true;
-
-        try
-        {
-            var request = new GetAllProdutosRequest();
-            var result = await Handler.GetAllAsync(request);
-            if (result.IsSucess)
-                Produtos = result.Data ?? [];
-            else
-            {
-                Snackbar.Add(result.Message!, Severity.Error);
-            }
-        }
-        catch (Exception e)
-        {
-            Snackbar.Add(e.Message, Severity.Error);
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
-    
-    #endregion
+    // #region Overrides
+    //
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     IsBusy = true;
+    //
+    //     try
+    //     {
+    //         var request = new GetAllProdutosRequest();
+    //         var result = await Handler.GetAllAsync(request);
+    //         if (result.IsSucess)
+    //             Produtos = result.Data ?? [];
+    //         else
+    //         {
+    //             Snackbar.Add(result.Message!, Severity.Error);
+    //         }
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Snackbar.Add(e.Message, Severity.Error);
+    //     }
+    //     finally
+    //     {
+    //         IsBusy = false;
+    //     }
+    // }
+    //
+    // #endregion
     
     #region Methods
     
@@ -68,8 +71,11 @@ public partial class ProdutosBase : ComponentBase
             );
 
             if (result is true)
+            {
                 await OnDeleteAsync(id, title);
-        
+                await _grid.ReloadServerData();
+            }
+
             StateHasChanged();
         }
         catch (Exception e)
@@ -89,7 +95,6 @@ public partial class ProdutosBase : ComponentBase
             if (result.IsSucess)
             {
                 Snackbar.Add($"Produto {title} excluído com sucesso!", Severity.Success);
-                Produtos.RemoveAll(e => e.Id == id);
             }
             else
             {
@@ -123,10 +128,7 @@ public partial class ProdutosBase : ComponentBase
             if (result is not null)
             {
                 Snackbar.Add("Produto atualizado com sucesso!", Severity.Success);
-                var request = new GetAllProdutosRequest();
-                var response = await Handler.GetAllAsync(request);
-                if (response.IsSucess)
-                    Produtos = response.Data ?? [];
+                await _grid.ReloadServerData();
                 
                 StateHasChanged();
             }
@@ -159,10 +161,7 @@ public partial class ProdutosBase : ComponentBase
             if (result is not null)
             {
                 Snackbar.Add("Produto criado com sucesso!", Severity.Success);
-                var request = new GetAllProdutosRequest();
-                var response = await Handler.GetAllAsync(request);
-                if (response.IsSucess)
-                    Produtos = response.Data ?? [];
+                await _grid.ReloadServerData();
                 
                 StateHasChanged();
             }
@@ -178,17 +177,45 @@ public partial class ProdutosBase : ComponentBase
         }
     }
     
-    public Func<Produto, bool> Filter => produto =>
+    public async Task<GridData<Produto>> LoadServerData(GridState<Produto> state)
     {
-        if (string.IsNullOrWhiteSpace(SearchTerm))
-            return true;
+        IsBusy = true;
+        StateHasChanged();
 
-        return produto.Nome.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               produto.Descricao!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               produto.Peca.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               produto.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               produto.Preco.ToString("C").Contains(SearchTerm, StringComparison.OrdinalIgnoreCase);
-    };
+        var request = new GetAllProdutosRequest
+        {
+            PageNumber = state.Page,
+            PageSize = state.PageSize,
+        };
+
+        try
+        {
+            var result = await Handler.GetAllAsync(request);
+            if (result.IsSucess)
+            {
+                return new GridData<Produto>
+                {
+                    Items = result.Data ?? [],
+                    TotalItems = result.TotalCount
+                };
+            }
+            
+            Snackbar.Add(result.Message!, Severity.Error);
+        }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+        finally
+        {
+            IsBusy = false;
+            StateHasChanged();
+        }
+
+        return new GridData<Produto> { Items = [], TotalItems = 0 };
+    }
+    
+    
     
     #endregion
 }

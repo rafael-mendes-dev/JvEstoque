@@ -8,26 +8,17 @@
     <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVO PRODUTO</MudButton>
 </div>
 
-<MudDataGrid Class="mt-4" Items="@Produtos" Filterable="false" QuickFilter="Filter" Hideable="true" ShowFilterIcons="true">
+<MudDataGrid T="Produto" Dense="true" @ref="_grid" Hover="true" Class="mt-4" Filterable="false" ServerData="LoadServerData" Hideable="true" ShowFilterIcons="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Produtos</MudText>
         <MudSpacer/>
-        <MudTextField
-            @bind-Value="SearchTerm"
-            Placeholder="Filtrar..."
-            Adornment="Adornment.Start"
-            AdornmentIcon="@Icons.Material.Rounded.Search"
-            Immediate="true"
-            IconSize="Size.Medium"
-            Class="mt-0">
-        </MudTextField>
     </ToolBarContent>
     <Columns>
         <PropertyColumn Property="x => x.Id" Title="#"/>
         <PropertyColumn Property="x => x.Nome" Title="Nome"/>
         <PropertyColumn Property="x => x.Descricao" Title="Descrição"/>
         <PropertyColumn Property="x => x.Preco" Title="Preço" Format="C"/>
-        <TemplateColumn Title="Peça" Filterable="true">
+        <TemplateColumn Title="Peça">
             <CellTemplate>
                 <MudChip Color="Color.Primary">@(((EPeca)context.Item.Peca).ToString().AdicionarEspacoAntesMaiuscula())</MudChip>
             </CellTemplate>
@@ -36,9 +27,13 @@
             <CellTemplate>
                 <MudStack Row>
                     <MudIconButton Icon="@Icons.Material.Rounded.Edit" Color="Color.Primary" OnClick="() => OnEditButtonClickedAsync(context.Item.Id)"></MudIconButton>
-                    <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error" aria-label="Excluir" OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error"  OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Segment" Color="Color.Primary" aria-label="Ver variações"></MudIconButton>
                 </MudStack>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
+    <PagerContent>
+        <MudDataGridPager/>
+    </PagerContent>
 </MudDataGrid>

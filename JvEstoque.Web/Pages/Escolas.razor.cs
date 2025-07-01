@@ -14,8 +14,8 @@ public class ListEscolasPage : ComponentBase
     public bool IsBusy { get; set; }
     protected List<Escola> Escolas { get; set; } = [];
 
-    public string SearchTerm { get; set; } = string.Empty;
-    
+    public MudDataGrid<Escola> _grid = null!;
+
     #endregion
 
     #region Services
@@ -23,35 +23,6 @@ public class ListEscolasPage : ComponentBase
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
     [Inject] public IEscolaHandler Handler { get; set; } = null!;
-
-    #endregion
-
-    #region Overrides
-
-    protected override async Task OnInitializedAsync()
-    {
-        IsBusy = true;
-
-        try
-        {
-            var request = new GetAllEscolasRequest();
-            var result = await Handler.GetAllAsync(request);
-            if (result.IsSucess)
-                Escolas = result.Data ?? [];
-            else
-            {
-                Snackbar.Add(result.Message!, Severity.Error);
-            }
-        }
-        catch (Exception e)
-        {
-            Snackbar.Add(e.Message, Severity.Error);
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
 
     #endregion
 
@@ -69,7 +40,10 @@ public class ListEscolasPage : ComponentBase
             );
 
             if (result is true)
+            {
                 await OnDeleteAsync(id, title);
+                await _grid.ReloadServerData();
+            }
         
             StateHasChanged();
         }
@@ -90,7 +64,6 @@ public class ListEscolasPage : ComponentBase
             if (result.IsSucess)
             {
                 Snackbar.Add($"Escola {title} excluída com sucesso!", Severity.Success);
-                Escolas.RemoveAll(e => e.Id == id);
             }
             else
             {
@@ -124,10 +97,7 @@ public class ListEscolasPage : ComponentBase
             if (result is not null)
             {
                 Snackbar.Add("Escola atualizada com sucesso!", Severity.Success);
-                var request = new GetAllEscolasRequest();
-                var response = await Handler.GetAllAsync(request);
-                if (response.IsSucess)
-                    Escolas = response.Data ?? [];
+                await _grid.ReloadServerData();
                 
                 StateHasChanged();
             }
@@ -160,10 +130,7 @@ public class ListEscolasPage : ComponentBase
             if (result is not null)
             {
                 Snackbar.Add("Escola criada com sucesso!", Severity.Success);
-                var request = new GetAllEscolasRequest();
-                var response = await Handler.GetAllAsync(request);
-                if (response.IsSucess)
-                    Escolas = response.Data ?? [];
+                await _grid.ReloadServerData();
                 
                 StateHasChanged();
             }
@@ -178,16 +145,43 @@ public class ListEscolasPage : ComponentBase
         }
     }
     
-    public Func<Escola, bool> Filter => escola =>
+    public async Task<GridData<Escola>> LoadServerData(GridState<Escola> state)
     {
-        if (string.IsNullOrWhiteSpace(SearchTerm))
-            return true;
+        IsBusy = true;
+        StateHasChanged();
 
-        return escola.Nome.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Endereco!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-               escola.Telefone!.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase);
-    };
+        var request = new GetAllEscolasRequest
+        {
+            PageNumber = state.Page + 1, 
+            PageSize = state.PageSize,
+        };
+
+        try
+        {
+            var result = await Handler.GetAllAsync(request);
+            if (result.IsSucess)
+            {
+                return new GridData<Escola>
+                {
+                    Items = result.Data ?? [],
+                    TotalItems = result.TotalCount
+                };
+            }
+            
+            Snackbar.Add(result.Message!, Severity.Error);
+        }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+        finally
+        {
+            IsBusy = false;
+            StateHasChanged();
+        }
+
+        return new GridData<Escola> { Items = [], TotalItems = 0 };
+    }
 
     #endregion
 }

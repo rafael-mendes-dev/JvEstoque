@@ -8,19 +8,10 @@
     <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVA ESCOLA</MudButton>
 </div>
 
-<MudDataGrid Class="mt-4" Items="@Escolas" Filterable="false" QuickFilter="Filter" Hideable="true" ShowFilterIcons="true">
+<MudDataGrid @ref="_grid" T="Escola" Class="mt-4" ServerData="LoadServerData" Filterable="false" Hideable="true" ShowFilterIcons="true" Dense="true" Hover="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Escolas</MudText>
         <MudSpacer/>
-        <MudTextField
-            @bind-Value="SearchTerm"
-            Placeholder="Filtrar..."
-            Adornment="Adornment.Start"
-            AdornmentIcon="@Icons.Material.Rounded.Search"
-            Immediate="true"
-            IconSize="Size.Medium"
-            Class="mt-0">
-        </MudTextField>
     </ToolBarContent>
     <Columns>
         <PropertyColumn Property="x => x.Id" Title="#"/>
@@ -36,4 +27,7 @@
             </CellTemplate>
         </TemplateColumn>
     </Columns>
+    <PagerContent>
+        <MudDataGridPager/>
+    </PagerContent>
 </MudDataGrid>

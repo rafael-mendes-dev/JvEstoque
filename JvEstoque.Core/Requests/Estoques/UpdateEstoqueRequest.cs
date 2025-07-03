@@ -5,6 +5,7 @@ namespace JvEstoque.Core.Requests.Estoques;
 
 public class UpdateEstoqueRequest
 {
+    [JsonIgnore]
     public int Id { get; set; }
     [JsonIgnore]
     [Required(ErrorMessage = "O ID do produto é obrigatório.")]

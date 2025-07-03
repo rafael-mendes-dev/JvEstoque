@@ -14,6 +14,7 @@ public class UpdateVariacaoProdutoRequest
  
     public int ProdutoId { get; set; }
     public int EscolaId { get; set; }
+    public int EstoqueId { get; set; }
      
     [Required(ErrorMessage = "O tamanho é obrigatório.")]
     public ETamanho Tamanho { get; set; } = ETamanho.Outro;
@@ -27,7 +28,5 @@ public class UpdateVariacaoProdutoRequest
      
     [Required(ErrorMessage = "O gênero é obrigatório.")]
     public EGenero Genero { get; set; } = EGenero.Unissex;
-     
-    [Range(0, int.MaxValue, ErrorMessage = "A quantidade no estoque deve ser maior que zero.")]
     public UpdateEstoqueRequest Estoque { get; set; } = new();
 }

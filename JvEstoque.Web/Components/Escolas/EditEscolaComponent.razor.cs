@@ -8,15 +8,14 @@ namespace JvEstoque.Web.Components.Escolas;
 public partial class EditEscolaPageBase : ComponentBase
 {
     #region Properties
-
+    [Parameter] public int Id { get; set; }
     public bool IsBusy { get; set; } = false;
     public UpdateEscolaRequest InputModel { get; set; } = new();
 
     #endregion
 
-    #region Parameters
-
-    [Parameter] public int Id { get; set; }
+    #region Services
+    
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IEscolaHandler Handler { get; set; } = null!;
     [CascadingParameter] IMudDialogInstance DialogInstance { get; set; } = null!;

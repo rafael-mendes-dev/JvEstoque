@@ -10,7 +10,7 @@ public class UpdateProdutoRequest
     public int Id { get; set; }
     
     [Required(ErrorMessage = "O nome é obrigatório.")]
-    [StringLength(25, MinimumLength = 3, ErrorMessage = "O nome deve ter entre 3 e 25 caracteres.")]
+    [StringLength(50, MinimumLength = 3, ErrorMessage = "O nome deve ter entre 3 e 50 caracteres.")]
     public string Nome { get; set; } = string.Empty;
     
     [Required(ErrorMessage = "O tipo de peça é obrigatória.")]

@@ -94,7 +94,7 @@ public class ListEscolasPage : ComponentBase
             
             var result = await dialogReference.Result;
             
-            if (result is not null)
+            if (!result!.Canceled)
             {
                 Snackbar.Add("Escola atualizada com sucesso!", Severity.Success);
                 await _grid.ReloadServerData();

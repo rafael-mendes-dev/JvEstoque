@@ -95,7 +95,7 @@ public partial class VariacoesBase : ComponentBase
             
             var result = await dialogReference.Result;
             
-            if (result is not null)
+            if (!result!.Canceled)
             {
                 Snackbar.Add("Variação atualizada com sucesso!", Severity.Success);
                 await Grid.ReloadServerData();

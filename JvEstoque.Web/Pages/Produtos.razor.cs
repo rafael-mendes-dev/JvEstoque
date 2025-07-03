@@ -95,7 +95,7 @@ public partial class ProdutosBase : ComponentBase
             
             var result = await dialogReference.Result;
             
-            if (result is not null)
+            if (!result!.Canceled)
             {
                 Snackbar.Add("Produto atualizado com sucesso!", Severity.Success);
                 await Grid.ReloadServerData();

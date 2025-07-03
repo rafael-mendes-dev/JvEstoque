@@ -5,10 +5,10 @@
     <DialogContent>
         <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="InputModel.Nome" Label="Nome do Produto" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
-            <MudTextField @bind-Value="InputModel.Descricao" Label="Descrição do Produto" HelperText="Campo obrigatório" For="() => InputModel.Descricao"/>
-            <MudTextField @bind-Value="InputModel.Preco" T="decimal" Format="C" Variant="Variant.Text" Label="Preço do Produto" HelperText="Campo obrigatório" For="() => InputModel.Preco"/>
-            <MudSelect T="EPeca" Label="Tipo de peça" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Peca">
+            <MudTextField @bind-Value="InputModel.Nome" Class="mt-3 mb-3" Label="Nome do Produto" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
+            <MudTextField @bind-Value="InputModel.Descricao" Class="mt-3 mb-3" Label="Descrição do Produto" HelperText="Campo Opcional" For="() => InputModel.Descricao"/>
+            <MudTextField @bind-Value="InputModel.Preco" Class="mt-3 mb-3" T="decimal" Format="C" Variant="Variant.Text" Label="Preço do Produto" HelperText="Campo obrigatório" For="() => InputModel.Preco"/>
+            <MudSelect T="EPeca" Label="Tipo de peça" Class="mt-3 mb-3" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Peca">
                 <MudSelectItem T="EPeca" Value="EPeca.Camiseta">Camiseta</MudSelectItem>
                 <MudSelectItem T="EPeca" Value="EPeca.CamisetaMangaLonga">Camiseta de Manga Longa</MudSelectItem>
                 <MudSelectItem T="EPeca" Value="EPeca.CalcaTradicional">Calça Tradicional</MudSelectItem>
@@ -25,7 +25,7 @@
             }
             else
             {
-                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Salvar</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Class="mt-3 mb-3" Color="Color.Primary">Salvar</MudButton>
             }
         </EditForm>
     </DialogContent>

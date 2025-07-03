@@ -1,19 +1,19 @@
 ﻿using JvEstoque.Core.Handlers;
 using JvEstoque.Core.Models;
-using JvEstoque.Core.Requests.Produtos;
-using JvEstoque.Web.Components.Produtos;
+using JvEstoque.Core.Requests.VariacoesProdutos;
+using JvEstoque.Web.Components.VariacoesProdutos;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace JvEstoque.Web.Pages;
 
-public partial class ProdutosBase : ComponentBase
+public partial class VariacoesBase : ComponentBase
 {
-    #region Properties
+     #region Properties
 
     public bool IsBusy { get; set; } = false;
-    public List<Produto> Produtos { get; set; } = [];
-    public MudDataGrid<Produto> Grid = null!;
+    public List<VariacaoProduto> VariacaoProdutos { get; set; } = [];
+    public MudDataGrid<VariacaoProduto> Grid = null!;
     
 
     #endregion
@@ -22,7 +22,7 @@ public partial class ProdutosBase : ComponentBase
     
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
-    [Inject] public IProdutoHandler Handler { get; set; } = null!;
+    [Inject] public IVariacaoProdutoHandler Handler { get; set; } = null!;
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
     
     #endregion
@@ -35,7 +35,7 @@ public partial class ProdutosBase : ComponentBase
         {
             var result = await DialogService.ShowMessageBox(
                 "Confirmação",
-                $"Você tem certeza que deseja excluir o produto {title}?",
+                $"Você tem certeza que deseja excluir a variação {title}?",
                 yesText: "Sim",
                 cancelText: "Não"
             );
@@ -60,11 +60,11 @@ public partial class ProdutosBase : ComponentBase
 
         try
         {
-            var request = new DeleteProdutoRequest{ Id = id};
+            var request = new DeleteVariacaoProdutoRequest{ Id = id};
             var result = await Handler.DeleteAsync(request);
             if (result.IsSucess)
             {
-                Snackbar.Add($"Produto {title} excluído com sucesso!", Severity.Success);
+                Snackbar.Add($"Variação {title} excluída com sucesso!", Severity.Success);
             }
             else
             {
@@ -87,8 +87,8 @@ public partial class ProdutosBase : ComponentBase
 
         try
         {
-            var dialogReference = await DialogService.ShowAsync<EditProdutosComponent>(
-                "Editar Produto",
+            var dialogReference = await DialogService.ShowAsync<EditVariacaoProdutoComponent>(
+                "Editar Variação",
                 new DialogParameters { { "Id", id } },
                 new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraLarge }
             );
@@ -97,7 +97,7 @@ public partial class ProdutosBase : ComponentBase
             
             if (result is not null)
             {
-                Snackbar.Add("Produto atualizado com sucesso!", Severity.Success);
+                Snackbar.Add("Variação atualizada com sucesso!", Severity.Success);
                 await Grid.ReloadServerData();
                 
                 StateHasChanged();
@@ -120,8 +120,8 @@ public partial class ProdutosBase : ComponentBase
 
         try
         {
-            var dialogReference = await DialogService.ShowAsync<CreateProdutoComponent>(
-                "Criar Produto",
+            var dialogReference = await DialogService.ShowAsync<CreateVariacaoProdutoComponent>(
+                "Criar Variação",
                 new DialogParameters(),
                 new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraLarge }
             );
@@ -130,7 +130,7 @@ public partial class ProdutosBase : ComponentBase
             
             if (result is not null)
             {
-                Snackbar.Add("Produto criado com sucesso!", Severity.Success);
+                Snackbar.Add("Variacao criada com sucesso!", Severity.Success);
                 await Grid.ReloadServerData();
                 
                 StateHasChanged();
@@ -147,14 +147,14 @@ public partial class ProdutosBase : ComponentBase
         }
     }
     
-    public async Task<GridData<Produto>> LoadServerData(GridState<Produto> state)
+    public async Task<GridData<VariacaoProduto>> LoadServerData(GridState<VariacaoProduto> state)
     {
         IsBusy = true;
         StateHasChanged();
 
-        var request = new GetAllProdutosRequest
+        var request = new GetAllVariacoesProdutosRequest()
         {
-            PageNumber = state.Page,
+            PageNumber = state.Page + 1,
             PageSize = state.PageSize,
         };
 
@@ -163,7 +163,7 @@ public partial class ProdutosBase : ComponentBase
             var result = await Handler.GetAllAsync(request);
             if (result.IsSucess)
             {
-                return new GridData<Produto>
+                return new GridData<VariacaoProduto>
                 {
                     Items = result.Data ?? [],
                     TotalItems = result.TotalCount
@@ -182,7 +182,7 @@ public partial class ProdutosBase : ComponentBase
             StateHasChanged();
         }
 
-        return new GridData<Produto> { Items = [], TotalItems = 0 };
+        return new GridData<VariacaoProduto> { Items = [], TotalItems = 0 };
     }
     
     

@@ -1,0 +1,34 @@
+﻿@inherits ListVariacoesByProdutoIdComponentBase
+
+<MudDialog>
+    <DialogContent>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+        }
+        else
+        {
+            @if (Variacoes.Count == 0)
+            {
+                <MudText>Nenhuma variação encontrada para este produto.</MudText>
+            }
+            foreach (var variacao in Variacoes)
+            {
+                <MudCard Outlined="true" Class="mb-3">
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">@variacao.Sku</MudText>
+                        <MudText class="d-flex justify-between align-center">@variacao.Escola.Nome</MudText>
+                        <MudText class="d-flex justify-between align-center">Cor: @variacao.Cor</MudText>
+                        <div class="d-flex justify-between">
+                            <MudText>Tamanho: @variacao.Tamanho.ToString().AdicionarEspacoAntesMaiuscula()</MudText>
+                            <MudSpacer/>
+                            <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error" OnClick="() => OnDeleteButtonClickedAsync(variacao.Id, variacao.Sku)"></MudIconButton>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+                <MudButton StartIcon="@Icons.Material.Rounded.ReadMore" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigationManager.NavigateTo(VariacoesRote)">Ver mais</MudButton>
+            }
+            
+        }
+    </DialogContent>
+</MudDialog>

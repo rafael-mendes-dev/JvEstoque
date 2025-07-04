@@ -28,7 +28,7 @@
                 <MudStack Row>
                     <MudIconButton Icon="@Icons.Material.Rounded.Edit" Color="Color.Primary" OnClick="() => OnEditButtonClickedAsync(context.Item.Id)"></MudIconButton>
                     <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error"  OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Nome)"></MudIconButton>
-                    <MudIconButton Icon="@Icons.Material.Rounded.Segment" Color="Color.Primary" aria-label="Ver variações"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Segment" Color="Color.Primary" OnClick="() => OnViewVariacoesButtonClickedAsync(context.Item.Id)"></MudIconButton>
                 </MudStack>
             </CellTemplate>
         </TemplateColumn>

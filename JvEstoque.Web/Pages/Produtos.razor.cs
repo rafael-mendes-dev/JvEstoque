@@ -128,7 +128,7 @@ public partial class ProdutosBase : ComponentBase
             
             var result = await dialogReference.Result;
             
-            if (result is not null)
+            if (!result!.Canceled)
             {
                 Snackbar.Add("Produto criado com sucesso!", Severity.Success);
                 await Grid.ReloadServerData();
@@ -136,6 +136,28 @@ public partial class ProdutosBase : ComponentBase
                 StateHasChanged();
             }
             
+        }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+    
+    public async Task OnViewVariacoesButtonClickedAsync(int id)
+    {
+        IsBusy = true;
+
+        try
+        {
+            var dialogReference = await DialogService.ShowAsync<ListVariacoesByProdutoIdComponent>(
+                "Variações do Produto",
+                new DialogParameters { { "ProdutoId", id } },
+                new DialogOptions { CloseButton = true, FullWidth = true}
+            );
         }
         catch (Exception e)
         {

@@ -8,26 +8,26 @@
 <AuthorizeView>
     <Authorized>
         <MudLayout>
-            <MudAppBar Elevation="1">
+            <MudAppBar Elevation="1" >
                 <MudButton StartIcon="@(_isDrawerOpened ? Icons.Material.Rounded.MenuOpen : Icons.Material.Rounded.Menu)" 
                            OnClick="ToggleDrawer"/>
-                <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home">
+                <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home" Class="d-none d-sm-inline-flex">
                     JV ESTOQUE
                 </MudButton>
-                <MudSpacer/>
-                <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Inventory2">
+                <MudSpacer />
+                <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Inventory2" Class="d-none d-sm-inline-flex">
                     Produtos
                 </MudButton>
-                <MudSpacer/>
-                <MudButton Href="/dasboard" StartIcon="@Icons.Material.Rounded.Dashboard">
+                <MudSpacer />
+                <MudButton Href="/dasboard" StartIcon="@Icons.Material.Rounded.Dashboard" Class="d-none d-sm-inline-flex">
                     DashBoard
                 </MudButton>
-                <MudSpacer/>
-                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.Receipt">
+                <MudSpacer />
+                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.Receipt" Class="d-none d-sm-inline-flex">
                     Pedidos
                 </MudButton>
-                <MudSpacer/>
-                <MudButton Href="/sair" StartIcon="@Icons.Material.Rounded.Logout">
+                <MudSpacer />
+                <MudButton Href="/sair" StartIcon="@Icons.Material.Rounded.Logout" Class="d-none d-sm-inline-flex">
                     Sair
                 </MudButton>
                 <MudSwitch Color="Color.Inherit" @bind-Value="_isDarkMode" T="bool" ThumbIcon="@Icons.Material.Rounded.Lightbulb" Class="ma-4"/>

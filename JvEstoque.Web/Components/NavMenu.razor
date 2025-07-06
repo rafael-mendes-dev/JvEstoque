@@ -1,12 +1,7 @@
 ﻿<MudNavMenu Class="ml-4">
-    <MudNavGroup Title="Produtos" Icon="@Icons.Material.Rounded.Inventory2">
-        <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Inventory2">
-            Produtos
-        </MudButton>
-        <MudButton Href="/variacoes" StartIcon="@Icons.Material.Rounded.AppRegistration">
-            Variações de Produtos
-        </MudButton>
-    </MudNavGroup>
+    <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home">
+        Home
+    </MudButton>
     <MudSpacer/>
     <MudButton Href="/dasboard" StartIcon="@Icons.Material.Rounded.Dashboard">
         DashBoard
@@ -19,9 +14,14 @@
         Pedidos
     </MudButton>
     <MudSpacer/>
-    <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Category">
-        Produtos
-    </MudButton>
+    <MudNavGroup Title="Produtos" Icon="@Icons.Material.Rounded.Category">
+        <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Inventory2">
+            Produtos
+        </MudButton>
+        <MudButton Href="/variacoes" StartIcon="@Icons.Material.Rounded.AppRegistration">
+            Variações de Produtos
+        </MudButton>
+    </MudNavGroup>
     <MudSpacer/>
     <MudButton Href="/sair" StartIcon="@Icons.Material.Rounded.Logout">
         Sair

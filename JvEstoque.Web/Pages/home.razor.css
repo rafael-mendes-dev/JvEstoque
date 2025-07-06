@@ -1,0 +1,7 @@
+﻿::deep .mud-card{
+    transition: transform .3s;
+}
+
+::deep .mud-card:hover{
+    transform: scale(1.05);
+}

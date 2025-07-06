@@ -2,57 +2,87 @@
 @inject NavigationManager NavigationManager
 
 <PageTitle>JV - Home</PageTitle>
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 32px;">
-    <MudText Typo="Typo.h3">Acesso Rápido</MudText>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 32px; width: 100%;">
-        <div style="flex: 1; max-width: 400px;" onclick="@(() => NavigationManager.NavigateTo("/produtos"))">
-            <MudPaper Class="card-link" Style="background: transparent; cursor: pointer; padding: 32px; min-height: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid var(--mud-palette-primary);" Elevation="2" Outlined="true">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <MudText Typo="Typo.h5">Produtos</MudText>
-                    <MudIcon Icon="@Icons.Material.Rounded.Inventory2" Size="Size.Large" />
-                </div>
-                <MudText Typo="Typo.subtitle1">Ir para seção de produtos.</MudText>
-            </MudPaper>
-        </div>
-        <div style="flex: 1; max-width: 400px;" onclick="@(() => NavigationManager.NavigateTo("/dashboard"))">
-            <MudPaper Class="card-link" Style="background: transparent; cursor: pointer; padding: 32px; min-height: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid var(--mud-palette-primary);" Elevation="2" Outlined="true">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <MudText Typo="Typo.h5">Dashboard</MudText>
-                    <MudIcon Icon="@Icons.Material.Rounded.Dashboard" Size="Size.Large" />
-                </div>
-                <MudText Typo="Typo.subtitle1">Ir para o dashboard.</MudText>
-            </MudPaper>
-        </div>
-    </div>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 32px; width: 100%;">
-        <div style="flex: 1; max-width: 400px;" onclick="@(() => NavigationManager.NavigateTo("/escolas"))">
-            <MudPaper Class="card-link" Style="background: transparent; cursor: pointer; padding: 32px; min-height: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid var(--mud-palette-primary);" Elevation="2" Outlined="true">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <MudText Typo="Typo.h5">Escolas</MudText>
-                    <MudIcon Icon="@Icons.Material.Rounded.School" Size="Size.Large" />
-                </div>
-                <MudText Typo="Typo.subtitle1">Ir para seção de escolas.</MudText>
-            </MudPaper>
-        </div>
-        <div style="flex: 1; max-width: 400px;" onclick="@(() => NavigationManager.NavigateTo("/pedidos"))">
-            <MudPaper Class="card-link" Style="background: transparent; cursor: pointer; padding: 32px; min-height: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid var(--mud-palette-primary);" Elevation="2" Outlined="true">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <MudText Typo="Typo.h5">Pedidos</MudText>
-                    <MudIcon Icon="@Icons.Material.Rounded.Receipt" Size="Size.Large" />
-                </div>
-                <MudText Typo="Typo.subtitle1">Ir para seção de pedidos.</MudText>
-            </MudPaper>
-        </div>
-    </div>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 32px; width: 100%;">
-        <div style="flex: 1; max-width: 400px;" onclick="@(() => NavigationManager.NavigateTo("/produtos"))">
-            <MudPaper Class="card-link" Style="background: transparent; cursor: pointer; padding: 32px; min-height: 180px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid var(--mud-palette-primary);" Elevation="2" Outlined="true">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <MudText Typo="Typo.h5">Produtos</MudText>
-                    <MudIcon Icon="@Icons.Material.Rounded.Category" Size="Size.Large" />
-                </div>
-                <MudText Typo="Typo.subtitle1">Ir para seção de produtos.</MudText>
-            </MudPaper>
-        </div>
-    </div>
+<div>
+    <MudGrid Justify="Justify.FlexStart" Class="mt-4">
+        <MudItem xs="12" sm="6" md="4" @onclick="@(() => NavigationManager.NavigateTo("/produtos"))">
+            <MudCard Outlined="true" Style="cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.5);" Class="card d-flex flex-column justify-center mud-width-full">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Produtos</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIcon Icon="@Icons.Material.Rounded.Inventory2" Size="Size.Large" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="https://i.postimg.cc/Vv0PrsD2/Design-sem-nome.png" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.subtitle1">Ir para seção de produtos.</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" @onclick="@(() => NavigationManager.NavigateTo("/dashboard"))">
+            <MudCard Outlined="true" Style="cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.5);" Class="card d-flex flex-column justify-center mud-width-full">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Dashboard</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIcon Icon="@Icons.Material.Rounded.SpaceDashboard" Size="Size.Large" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="https://i.postimg.cc/CKb3V6zp/Design-sem-nome-1.png" Class="justify-center align-center" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.subtitle1">Ir para dashboard.</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" @onclick="@(() => NavigationManager.NavigateTo("/escolas"))">
+            <MudCard Outlined="true" Style="cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.5);" Class="card d-flex flex-column justify-center mud-width-full">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Escolas</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIcon Icon="@Icons.Material.Rounded.School" Size="Size.Large" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="https://i.postimg.cc/L8gt5ctw/Design-sem-nome-2.png" Class="justify-center align-center" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.subtitle1">Ir para seção de escolas.</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="15" sm="8" md="6" @onclick="@(() => NavigationManager.NavigateTo("/pedidos"))">
+            <MudCard Outlined="true" Style="cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.5);" Class="d-flex flex-column justify-center mud-width-full mud-scale-on-hover">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Pedidos</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIcon Icon="@Icons.Material.Rounded.ShoppingBag" Size="Size.Large" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="https://i.postimg.cc/8CyZz8T0/Design-sem-nome-3.png" Class="justify-center align-center" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.subtitle1">Ir para seção de pedidos.</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="15" sm="8" md="6" @onclick="@(() => NavigationManager.NavigateTo("/variacoes"))">
+            <MudCard Outlined="true"  Style="cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.5);" Class="d-flex flex-column justify-center mud-width-full">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Variações de Produtos</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIcon Icon="@Icons.Material.Rounded.Style" Size="Size.Large" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="https://i.postimg.cc/kXT5Dfw3/Design-sem-nome-4.png" Class="justify-center align-center" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.subtitle1">Ir para seção de variações.</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 </div>

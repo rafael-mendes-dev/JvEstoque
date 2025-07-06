@@ -8,7 +8,7 @@
     <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVA VARIAÇÃO</MudButton>
 </div>
 
-<MudDataGrid T="VariacaoProduto" Dense="true" @ref="Grid" Hover="true" Class="mt-4" Filterable="false" ServerData="LoadServerData" Hideable="true" ShowFilterIcons="true">
+<MudDataGrid T="VariacaoProduto" Dense="true" @ref="Grid" Hover="true" Class="mt-4" LoadingProgressColor="Color.Primary" Filterable="false" ServerData="LoadServerData" Hideable="true" ShowFilterIcons="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Variações</MudText>
         <MudSpacer/>
@@ -16,13 +16,13 @@
     <Columns>
         <PropertyColumn Property="x => x.Id" Title="#"/>
         <PropertyColumn Property="x => x.Sku" Title="Sku"/>
-        <PropertyColumn Property="x => x.Produto.Nome" Title="Produto Base"/>
+        <PropertyColumn Property="x => x.Produto.Nome" Title="Produto"/>
         <PropertyColumn Property="x => x.Escola.Nome" Title="Escola"/>
         <PropertyColumn Property="x => x.Cor" Title="Cor"/>
         <PropertyColumn Property="x => x.Tamanho.ToString().AdicionarEspacoAntesMaiuscula()" Title="Tamanho"/>
         <PropertyColumn Property="x => x.Genero.ToString()" Title="Genero"/>
         <PropertyColumn Property="x => x.Tecido" Title="Tecido"/>
-        <PropertyColumn Property="x => x.Estoque.Quantidade" Title="Estoque"/>
+        <PropertyColumn Property="x => x.Estoque.Quantidade" Title="Quantidade"/>
         <TemplateColumn Title="Ações">
             <CellTemplate>
                 <MudStack Row>

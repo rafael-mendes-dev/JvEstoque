@@ -62,44 +62,79 @@ public partial class PedidosBase : ComponentBase
     {
         var dialog = await DialogService.ShowAsync<CreatePedidoComponent>("Criar Pedido", new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium });
         var result = await dialog.Result;
-        if (!result.Canceled)
+        if (!result!.Canceled)
         {
             await Grid.ReloadServerData();
         }
     }
 
-    public async Task OnEditButtonClickedAsync(long id)
+    public async Task OnEditButtonClickedAsync(int id)
     {
         var parameters = new DialogParameters { ["Id"] = id };
         var dialog = await DialogService.ShowAsync<EditPedidoComponent>($"Editar Pedido #{id}", parameters, new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium });
         var result = await dialog.Result;
-        if (!result.Canceled)
+        if (!result!.Canceled)
         {
             await Grid.ReloadServerData();
         }
     }
 
-    public async Task OnDeleteButtonClickedAsync(long id)
+    public async Task OnDeleteButtonClickedAsync(int id)
     {
-        var result = await DialogService.ShowMessageBox(
-            "Atenção",
-            $"Deseja realmente excluir o pedido #{id}?",
-            yesText: "Excluir",
-            cancelText: "Cancelar");
-
-        if (result is true)
+        try
         {
-            var deleteResult = await Handler.DeleteAsync(new DeletePedidoRequest { Id = id });
-            if (deleteResult.IsSucess)
+            var result = await DialogService.ShowMessageBox(
+                "Confirmação",
+                $"Você tem certeza que deseja excluir o pedido #{id}?",
+                yesText: "Sim",
+                cancelText: "Não"
+            );
+
+            if (result is true)
             {
-                Snackbar.Add("Pedido excluído com sucesso!", Severity.Success);
+                await OnDeleteAsync(id);
                 await Grid.ReloadServerData();
+            }
+
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+    }
+    
+    private async Task OnDeleteAsync(int id)
+    {
+        IsBusy = true;
+
+        try
+        {
+            var request = new DeletePedidoRequest{ Id = id};
+            var result = await Handler.DeleteAsync(request);
+            if (result.IsSucess)
+            {
+                Snackbar.Add($"Pedido #{id} excluído com sucesso!", Severity.Success);
             }
             else
             {
-                Snackbar.Add(deleteResult.Message, Severity.Error);
+                Snackbar.Add(result.Message!, Severity.Error);
             }
         }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    public async Task OnViewItemsButtonClickedAsync(int id)
+    {
+        var parameters = new DialogParameters { ["Id"] = id };
+        await DialogService.ShowAsync<ViewItensPedidoComponent>($"Itens do Pedido #{id}", parameters, new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium });
     }
     #endregion
 }

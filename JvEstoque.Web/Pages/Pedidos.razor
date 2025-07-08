@@ -1,1 +1,59 @@
 ﻿@page "/pedidos"
+@using MudBlazor.Extensions
+@inherits PedidosBase
+
+<MudText Typo="Typo.h3" Color="Color.Primary">
+    Pedidos
+</MudText>
+<div class="d-flex justify-end">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVO PEDIDO</MudButton>
+</div>
+
+<MudDataGrid @ref="Grid" T="Pedido" Class="mt-4" ServerData="LoadServerData" Filterable="false" Hideable="true" ShowFilterIcons="true" Dense="false" Hover="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Pedidos</MudText>
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="#"/>
+        <PropertyColumn Property="x => x.DataPedido" Title="Data do Pedido" Format="dd/MM/yyyy"/>
+        <PropertyColumn Property="x => x.NomeCliente" Title="Cliente"/>
+        <PropertyColumn Property="x => x.TelefoneCliente" Title="Telefone"/>
+        <TemplateColumn Title="Status">
+            <CellTemplate>
+                @if(context.Item.Status == EStatusPedido.EmProducao)
+                {
+                    <MudChip Color="Color.Warning" Variant="Variant.Filled">@context.Item.Status.ToString().AdicionarEspacoAntesMaiuscula()</MudChip>
+                }
+                else if(context.Item.Status == EStatusPedido.Finalizado)
+                {
+                    <MudChip Color="Color.Success" Variant="Variant.Filled">@context.Item.Status.ToString()</MudChip>
+                }
+                else if(context.Item.Status == EStatusPedido.Cancelado)
+                {
+                    <MudChip Color="Color.Warning" Variant="Variant.Filled">@context.Item.Status.ToString()</MudChip>
+                }
+                else
+                {
+                    <MudChip Color="Color.Info" Variant="Variant.Filled">@context.Item.Status.ToString()</MudChip>
+                }
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.ValorTotal" Title="Valor Total" Format="C2"/>
+        <TemplateColumn Title="Itens">
+            <CellTemplate>
+                <MudIconButton Icon="@Icons.Material.Rounded.ViewInAr" Variant="Variant.Filled" Color="Color.Info" OnClick="() => OnViewItemsButtonClickedAsync(context.Item.Id)"/>
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn Title="Ações">
+            <CellTemplate>
+                <MudStack Row>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Edit" Color="Color.Primary" OnClick="() => OnEditButtonClickedAsync(context.Item.Id)"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Rounded.Delete" Color="Color.Error" aria-label="Excluir" OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id)"></MudIconButton>
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager/>
+    </PagerContent>
+</MudDataGrid>

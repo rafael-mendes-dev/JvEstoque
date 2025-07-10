@@ -116,7 +116,15 @@ public class PedidoHandler(AppDbContext context) : IPedidoHandler
     {
         try
         {
-            var pedido = await context.Pedidos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == request.Id);
+            var pedido = await context.Pedidos
+                .Include(p => p.Itens)
+                    .ThenInclude(i => i.VariacaoProduto)
+                        .ThenInclude(vp => vp.Produto)
+                .Include(p => p.Itens)
+                    .ThenInclude(i => i.VariacaoProduto)
+                        .ThenInclude(vp => vp.Escola)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == request.Id);
 
             return pedido is null
                 ? new Response<Pedido?>(null, 404, "Pedido não encontrado.")

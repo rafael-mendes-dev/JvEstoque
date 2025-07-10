@@ -59,7 +59,7 @@ public class ProdutoHandler(AppDbContext context) : IProdutoHandler
     {
         try
         {
-            var produto = await context.Produtos.FindAsync(request.Id);
+            var produto = await context.Produtos.Include(p => p.Variacoes).FirstOrDefaultAsync(p => p.Id == request.Id);
             if (produto == null)
                 return new Response<Produto?>(null, 404, "Produto não encontrado.");
 

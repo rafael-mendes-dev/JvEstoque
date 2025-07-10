@@ -61,7 +61,7 @@ namespace JvEstoque.Api.Handlers
         {
             try
             {
-                var escola = await context.Escolas.FirstOrDefaultAsync(e => e.Id == request.Id);
+                var escola = await context.Escolas.Include(e => e.VariacoesProdutos).FirstOrDefaultAsync(e => e.Id == request.Id);
 
                 if (escola == null)
                     return new Response<Escola?>(null, 404, "Escola não encontrada.");

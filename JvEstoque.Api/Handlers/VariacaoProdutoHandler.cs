@@ -85,10 +85,14 @@ public class VariacaoProdutoHandler(AppDbContext context) : IVariacaoProdutoHand
     {
         try
         {
-            var variacaoProduto = await context.VariacoesProdutos.Include(v => v.Estoque).FirstOrDefaultAsync(v => v.Id == request.Id);
+            var variacaoProduto = await context.VariacoesProdutos.Include(v => v.Estoque).Include(vp => vp.ItensPedidos).FirstOrDefaultAsync(v => v.Id == request.Id);
             
             if (variacaoProduto == null)
                 return new Response<VariacaoProduto?>(null, 404, "Variação de produto não encontrada.");
+
+            if (variacaoProduto.ItensPedidos.Any())
+                return new Response<VariacaoProduto?>(null, 400, "Não é possível excluir a variação de produto porque ela está associada a um ou mais pedidos.");
+            
             
             context.VariacoesProdutos.Remove(variacaoProduto);
             await context.SaveChangesAsync();

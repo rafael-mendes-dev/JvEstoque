@@ -1,20 +1,34 @@
 ﻿@inherits CreateEscolaComponentBase
 
 <MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Nova Escola</MudText>
+    </TitleContent>
     <DialogContent>
         <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
             <DataAnnotationsValidator />
-            <MudTextField @bind-Value="InputModel.Nome" Class="mt-3 mb-3" Label="Nome da Escola" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
-            <MudTextField @bind-Value="InputModel.Endereco" Class="mt-3 mb-3" Label="Endereço da Escola" HelperText="Campo obrigatório" For="() => InputModel.Endereco"/>
-            <MudTextField @bind-Value="InputModel.Telefone" Class="mt-3 mb-3" Label="Telefone da Escola" HelperText="Campo obrigatório" For="() => InputModel.Telefone"/>
-            @if (IsBusy)
-            {
-                <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
-            }
-            else
-            {
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Class="mt-3 mb-3" Color="Color.Primary">Salvar</MudButton>
-            }
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="InputModel.Nome" Label="Nome da Escola" HelperText="Campo obrigatório" For="() => InputModel.Nome" Margin="Margin.Dense"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="InputModel.Endereco" Label="Endereço da Escola" HelperText="Campo opcional" For="() => InputModel.Endereco" Margin="Margin.Dense"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="InputModel.Telefone" Label="Telefone da Escola" HelperText="Campo opcional" For="() => InputModel.Telefone" Margin="Margin.Dense"/>
+                </MudItem>
+            </MudGrid>
         </EditForm>
     </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => DialogInstance.Cancel())">Cancelar</MudButton>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+        }
+        else
+        {
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="OnValidSubmitAsync">Salvar</MudButton>
+        }
+    </DialogActions>
 </MudDialog>

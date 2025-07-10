@@ -2,31 +2,47 @@
 @inherits CreateProdutoComponentBase
 
 <MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Novo Produto</MudText>
+    </TitleContent>
     <DialogContent>
         <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
             <DataAnnotationsValidator/>
-            <MudTextField @bind-Value="InputModel.Nome" Class="mt-3 mb-3" Label="Nome do Produto" HelperText="Campo obrigatório" For="() => InputModel.Nome"/>
-            <MudTextField @bind-Value="InputModel.Descricao" Class="mt-3 mb-3" Label="Descrição do Produto" HelperText="Campo Opcional" For="() => InputModel.Descricao"/>
-            <MudTextField @bind-Value="InputModel.Preco" Class="mt-3 mb-3" T="decimal" Format="C" Variant="Variant.Text" Label="Preço do Produto" HelperText="Campo obrigatório" For="() => InputModel.Preco"/>
-            <MudSelect T="EPeca" Label="Tipo de peça" Class="mt-3 mb-3" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Peca">
-                <MudSelectItem T="EPeca" Value="EPeca.Camiseta">Camiseta</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.CamisetaMangaLonga">Camiseta de Manga Longa</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.CalcaTradicional">Calça Tradicional</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.CalcaInverno">Calça de Inverno</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.Legging">Calça Legging</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.Shorts">Shorts/Saia</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.Blusa">Blusa</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.Jaqueta">Jaqueta</MudSelectItem>
-                <MudSelectItem T="EPeca" Value="EPeca.Outro">Outro</MudSelectItem>
-            </MudSelect>
-            @if (IsBusy)
-            {
-                <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
-            }
-            else
-            {
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Class="mt-3 mb-3" Color="Color.Primary">Salvar</MudButton>
-            }
+            <MudGrid>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="InputModel.Nome" Label="Nome do Produto" HelperText="Campo obrigatório" For="() => InputModel.Nome" Margin="Margin.Dense"/>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="InputModel.Preco" T="decimal" Format="C" Variant="Variant.Text" Label="Preço do Produto" HelperText="Campo obrigatório" For="() => InputModel.Preco" Margin="Margin.Dense"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="InputModel.Descricao" Label="Descrição do Produto" HelperText="Campo Opcional" For="() => InputModel.Descricao" Margin="Margin.Dense"/>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudSelect T="EPeca" Label="Tipo de peça" @bind-Value="InputModel.Peca" Margin="Margin.Dense">
+                        <MudSelectItem T="EPeca" Value="EPeca.Camiseta">Camiseta</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.CamisetaMangaLonga">Camiseta de Manga Longa</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.CalcaTradicional">Calça Tradicional</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.CalcaInverno">Calça de Inverno</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.Legging">Calça Legging</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.Shorts">Shorts/Saia</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.Blusa">Blusa</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.Jaqueta">Jaqueta</MudSelectItem>
+                        <MudSelectItem T="EPeca" Value="EPeca.Outro">Outro</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
         </EditForm>
     </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => DialogInstance.Cancel())">Cancelar</MudButton>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+        }
+        else
+        {
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="OnValidSubmitAsync">Salvar</MudButton>
+        }
+    </DialogActions>
 </MudDialog>

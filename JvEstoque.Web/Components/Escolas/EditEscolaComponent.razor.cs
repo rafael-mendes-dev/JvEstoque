@@ -18,7 +18,7 @@ public partial class EditEscolaPageBase : ComponentBase
     
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IEscolaHandler Handler { get; set; } = null!;
-    [CascadingParameter] IMudDialogInstance DialogInstance { get; set; } = null!;
+    [CascadingParameter] public IMudDialogInstance DialogInstance { get; set; } = null!;
     
     
     #endregion

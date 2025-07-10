@@ -19,7 +19,7 @@ public partial class EditProdutosComponentBase : ComponentBase
     [Parameter] public int Id { get; set; }
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
     [Inject] public IProdutoHandler Handler { get; set; } = null!;
-    [CascadingParameter] IMudDialogInstance DialogInstance { get; set; } = null!;
+    [CascadingParameter] public IMudDialogInstance DialogInstance { get; set; } = null!;
     
     
     #endregion

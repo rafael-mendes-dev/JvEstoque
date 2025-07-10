@@ -24,7 +24,7 @@ public partial class EditVariacaoProdutoComponentBase : ComponentBase
     #region Services
 
     [Inject] public ISnackbar Snackbar { get; set; } = null!;
-    [CascadingParameter] IMudDialogInstance DialogInstance { get; set; } = null!;
+    [CascadingParameter] public IMudDialogInstance DialogInstance { get; set; } = null!;
     [Inject] public IVariacaoProdutoHandler Handler { get; set; } = null!;
     [Inject] public IProdutoHandler ProdutoHandler { get; set; } = null!;
     [Inject] public IEscolaHandler EscolaHandler { get; set; } = null!;

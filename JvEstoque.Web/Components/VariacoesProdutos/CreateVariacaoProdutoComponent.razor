@@ -6,44 +6,64 @@
         <MudContainer Style="max-height: 500px; overflow-y: scroll">
             <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
                 <DataAnnotationsValidator />
-                <MudTextField @bind-Value="InputModel.Sku" Class="mt-3 mb-3" Label="SKU" HelperText="Campo obrigatório" For="() => InputModel.Sku" />
-                <MudSelect T="int" @bind-Value="InputModel.ProdutoId" Class="mt-3 mb-3" Label="Produto Base" For="() => InputModel.ProdutoId" AnchorOrigin="Origin.BottomCenter">
-                    @foreach (var produto in Produtos)
-                    {
-                        <MudSelectItem T="int" Value="@produto.Id">@produto.Nome</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudSelect T="int" @bind-Value="InputModel.EscolaId" Class="mt-3 mb-3" Label="Escola" For="() => InputModel.EscolaId" AnchorOrigin="Origin.BottomCenter">
-                    @foreach (var escola in Escolas)
-                    {
-                        <MudSelectItem T="int" Value="@escola.Id">@escola.Nome</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudTextField @bind-Value="InputModel.Cor" Class="mt-3 mb-3" Label="Cor" HelperText="Campo opcional" For="() => InputModel.Cor" />
-                <MudSelect T="ETamanho" Label="Tamanho" Class="mt-3 mb-3" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Tamanho">
-                    @foreach (ETamanho tamanho in Enum.GetValues(typeof(ETamanho)))
-                    {
-                        <MudSelectItem Value="tamanho">@tamanho.ToString().AdicionarEspacoAntesMaiuscula()</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudSelect T="EGenero" Label="Gênero" Class="mt-3 mb-3" AnchorOrigin="Origin.BottomCenter" @bind-Value="InputModel.Genero">
-                    @foreach (EGenero genero in Enum.GetValues(typeof(EGenero)))
-                    {
-                        <MudSelectItem Value="genero">@genero.ToString()</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudTextField @bind-Value="InputModel.Tecido" Class="mt-3 mb-3" Label="Tecido" For="() => InputModel.Tecido" />
-                <MudNumericField @bind-Value="InputModel.Estoque.Quantidade" Class="mt-3 mb-3" Label="Quantidade em Estoque" For="() => InputModel.Estoque.Quantidade" />
-                @if (IsBusy)
-                {
-                    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
-                }
-                else
-                {
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Class="mt-3 mb-3" Color="Color.Primary">Salvar</MudButton>
-                }
+                <MudGrid>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField @bind-Value="InputModel.Sku" Label="SKU" HelperText="Campo obrigatório" For="() => InputModel.Sku" Margin="Margin.Dense" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudNumericField @bind-Value="InputModel.Estoque.Quantidade" Label="Quantidade em Estoque" For="() => InputModel.Estoque.Quantidade" Margin="Margin.Dense" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="int" @bind-Value="InputModel.ProdutoId" Label="Produto Base" For="() => InputModel.ProdutoId" Margin="Margin.Dense">
+                            @foreach (var produto in Produtos)
+                            {
+                                <MudSelectItem T="int" Value="@produto.Id">@produto.Nome</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="int" @bind-Value="InputModel.EscolaId" Label="Escola" For="() => InputModel.EscolaId" Margin="Margin.Dense">
+                            @foreach (var escola in Escolas)
+                            {
+                                <MudSelectItem T="int" Value="@escola.Id">@escola.Nome</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField @bind-Value="InputModel.Cor" Label="Cor" HelperText="Campo opcional" For="() => InputModel.Cor" Margin="Margin.Dense" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudTextField @bind-Value="InputModel.Tecido" Label="Tecido" For="() => InputModel.Tecido" Margin="Margin.Dense" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="ETamanho" Label="Tamanho" @bind-Value="InputModel.Tamanho" Margin="Margin.Dense">
+                            @foreach (ETamanho tamanho in Enum.GetValues(typeof(ETamanho)))
+                            {
+                                <MudSelectItem Value="tamanho">@tamanho.ToString().AdicionarEspacoAntesMaiuscula()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect T="EGenero" Label="Gênero" @bind-Value="InputModel.Genero" Margin="Margin.Dense">
+                            @foreach (EGenero genero in Enum.GetValues(typeof(EGenero)))
+                            {
+                                <MudSelectItem Value="genero">@genero.ToString()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
             </EditForm>
         </MudContainer>
     </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => DialogInstance.Cancel())">Cancelar</MudButton>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        }
+        else
+        {
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="OnValidSubmitAsync">Salvar</MudButton>
+        }
+    </DialogActions>
 </MudDialog>
-

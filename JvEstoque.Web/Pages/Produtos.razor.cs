@@ -62,14 +62,7 @@ public partial class ProdutosBase : ComponentBase
         {
             var request = new DeleteProdutoRequest{ Id = id};
             var result = await Handler.DeleteAsync(request);
-            if (result.IsSucess)
-            {
-                Snackbar.Add($"Produto {title} excluído com sucesso!", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add(result.Message!, Severity.Error);
-            }
+            Snackbar.Add(result.Message!, result.IsSucess ? Severity.Info : Severity.Error);
         }
         catch (Exception e)
         {

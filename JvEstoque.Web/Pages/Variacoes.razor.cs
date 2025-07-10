@@ -62,14 +62,7 @@ public partial class VariacoesBase : ComponentBase
         {
             var request = new DeleteVariacaoProdutoRequest{ Id = id};
             var result = await Handler.DeleteAsync(request);
-            if (result.IsSucess)
-            {
-                Snackbar.Add($"Variação {title} excluída com sucesso!", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add(result.Message!, Severity.Error);
-            }
+            Snackbar.Add(result.Message!, result.IsSucess ? Severity.Info : Severity.Error);
         }
         catch (Exception e)
         {

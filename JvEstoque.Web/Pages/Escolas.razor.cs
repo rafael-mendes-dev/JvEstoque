@@ -61,14 +61,7 @@ public class ListEscolasPage : ComponentBase
         {
             var request = new DeleteEscolaRequest{ Id = id};
             var result = await Handler.DeleteAsync(request);
-            if (result.IsSucess)
-            {
-                Snackbar.Add($"Escola {title} excluída com sucesso!", Severity.Success);
-            }
-            else
-            {
-                Snackbar.Add(result.Message!, Severity.Error);
-            }
+            Snackbar.Add(result.Message!, result.IsSucess ? Severity.Info : Severity.Error);
         }
         catch (Exception e)
         {

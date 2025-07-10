@@ -62,6 +62,9 @@ public class ProdutoHandler(AppDbContext context) : IProdutoHandler
             var produto = await context.Produtos.FindAsync(request.Id);
             if (produto == null)
                 return new Response<Produto?>(null, 404, "Produto não encontrado.");
+
+            if (produto.Variacoes != null && produto.Variacoes.Any())
+                return new Response<Produto?>(null, 400, "Produto não pode ser excluído pois possui variações associadas.");
             
             context.Produtos.Remove(produto);
             await context.SaveChangesAsync();

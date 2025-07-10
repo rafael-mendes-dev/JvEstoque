@@ -66,6 +66,9 @@ namespace JvEstoque.Api.Handlers
                 if (escola == null)
                     return new Response<Escola?>(null, 404, "Escola não encontrada.");
 
+                if (escola.VariacoesProdutos != null && escola.VariacoesProdutos.Any())
+                    return new Response<Escola?>(null, 400, "Não é possível excluir a escola porque ela possui variações de produtos associadas.");
+
                 context.Escolas.Remove(escola);
                 await context.SaveChangesAsync();
 

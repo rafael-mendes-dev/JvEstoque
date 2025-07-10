@@ -19,18 +19,16 @@ public class VariacaoProdutoMapping : IEntityTypeConfiguration<VariacaoProduto>
         builder.HasOne(vp => vp.Produto)
             .WithMany(p => p.Variacoes)
             .HasForeignKey(vp => vp.ProdutoId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
+            
         builder.HasOne(vp => vp.Escola)
             .WithMany(e => e.VariacoesProdutos)
             .HasForeignKey(vp => vp.EscolaId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
+        
         builder.HasOne(vp => vp.Estoque)
             .WithOne(e => e.Variacao)
             .HasForeignKey<Estoque>(e => e.VariacaoProdutoId)
             .OnDelete(DeleteBehavior.Cascade);
-        builder.HasMany(vp => vp.ItensPedidos)
-            .WithOne(ip => ip.VariacaoProduto)
-            .HasForeignKey(ip => ip.VariacaoProdutoId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

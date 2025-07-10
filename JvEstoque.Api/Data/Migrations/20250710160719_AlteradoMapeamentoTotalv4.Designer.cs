@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JvEstoque.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250707180822_AlteradoMapeamentoDePedidosEItemPedido")]
-    partial class AlteradoMapeamentoDePedidosEItemPedido
+    [Migration("20250710160719_AlteradoMapeamentoTotalv4")]
+    partial class AlteradoMapeamentoTotalv4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -457,13 +457,13 @@ namespace JvEstoque.Api.Migrations
                     b.HasOne("JvEstoque.Core.Models.Escola", "Escola")
                         .WithMany("VariacoesProdutos")
                         .HasForeignKey("EscolaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("JvEstoque.Core.Models.Produto", "Produto")
                         .WithMany("Variacoes")
                         .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Escola");

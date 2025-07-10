@@ -454,13 +454,13 @@ namespace JvEstoque.Api.Migrations
                     b.HasOne("JvEstoque.Core.Models.Escola", "Escola")
                         .WithMany("VariacoesProdutos")
                         .HasForeignKey("EscolaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("JvEstoque.Core.Models.Produto", "Produto")
                         .WithMany("Variacoes")
                         .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Escola");

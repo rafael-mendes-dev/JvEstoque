@@ -14,6 +14,5 @@ public class ProdutoMapping : IEntityTypeConfiguration<Produto>
         builder.Property(p => p.Descricao).IsRequired(false).HasMaxLength(250).HasColumnType("VARCHAR(250)");
         builder.Property(p => p.Preco).IsRequired().HasColumnType("MONEY");
         builder.Property(p => p.Peca).IsRequired().HasColumnType("SMALLINT");
-        builder.HasMany(p => p.Variacoes).WithOne(vp => vp.Produto).HasForeignKey(vp => vp.ProdutoId).OnDelete(DeleteBehavior.Cascade);
     }
 }

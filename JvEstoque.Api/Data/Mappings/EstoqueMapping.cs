@@ -12,9 +12,5 @@ public class EstoqueMapping : IEntityTypeConfiguration<Estoque>
         
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Quantidade).IsRequired();
-        builder.HasOne(e => e.Variacao)
-            .WithOne(vp => vp.Estoque)
-            .HasForeignKey<Estoque>(e => e.VariacaoProdutoId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -5,37 +5,37 @@
 namespace JvEstoque.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AlteradoMetodoParaExclusaoDePedidos : Migration
+    public partial class AlteradoMapeamentoTotalv4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ItemPedido_Pedido_PedidoId",
+                name: "FK_ItemPedido_VariacaoProduto_VariacaoProdutoId",
                 table: "ItemPedido");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ItemPedido_Pedido_PedidoId",
+                name: "FK_ItemPedido_VariacaoProduto_VariacaoProdutoId",
                 table: "ItemPedido",
-                column: "PedidoId",
-                principalTable: "Pedido",
-                principalColumn: "Id");
+                column: "VariacaoProdutoId",
+                principalTable: "VariacaoProduto",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ItemPedido_Pedido_PedidoId",
+                name: "FK_ItemPedido_VariacaoProduto_VariacaoProdutoId",
                 table: "ItemPedido");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ItemPedido_Pedido_PedidoId",
+                name: "FK_ItemPedido_VariacaoProduto_VariacaoProdutoId",
                 table: "ItemPedido",
-                column: "PedidoId",
-                principalTable: "Pedido",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "VariacaoProdutoId",
+                principalTable: "VariacaoProduto",
+                principalColumn: "Id");
         }
     }
 }

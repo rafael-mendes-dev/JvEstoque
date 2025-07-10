@@ -2,5 +2,5 @@
 
 public class GetPedidoByIdRequest
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 }

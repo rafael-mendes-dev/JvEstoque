@@ -1,1 +1,79 @@
-﻿
+﻿@inherits EditPedidoComponentBase
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Editar Pedido</MudText>
+    </TitleContent>
+    <DialogContent>
+        <EditForm Model="InputModel" OnValidSubmit="OnValidSubmitAsync">
+            <DataAnnotationsValidator/>
+
+            <MudGrid>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="InputModel.NomeCliente" Label="Nome do Cliente" For="@(() => InputModel.NomeCliente)" Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="InputModel.TelefoneCliente" Label="Telefone do Cliente" For="@(() => InputModel.TelefoneCliente)" Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudDatePicker @bind-Date="InputModel.DataPedido" Label="Data do pedido" Margin="Margin.Dense" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="EStatusPedido" Label="Status do Pedido" @bind-Value="InputModel.Status" For="@(() => InputModel.Status)" Margin="Margin.Dense">
+                        @foreach (EStatusPedido status in Enum.GetValues(typeof(EStatusPedido)))
+                        {
+                            <MudSelectItem T="EStatusPedido" Value="@status">@status.ToString().AdicionarEspacoAntesMaiuscula()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+
+            <MudDivider Class="my-4"/>
+
+            <MudText Typo="Typo.h6" Class="mb-2">Itens do Pedido</MudText>
+
+            <MudGrid Style="align-items: center">
+                <MudItem xs="8">
+                    <MudAutocomplete T="VariacaoProduto" Label="Adicionar Produto" @bind-Value="VariacaoProdutoSelecionada"
+                                     SearchFunc="@SearchVariacoes" ToStringFunc="@(vp => vp == null ? null : $"{vp.Produto.Nome} ({vp.Cor} - {vp.Tamanho.ToString().AdicionarEspacoAntesMaiuscula()})")"
+                                     Variant="Variant.Outlined" Margin="Margin.Dense" ResetValueOnEmptyText="true" CoerceValue="true"/>
+                </MudItem>
+                <MudItem xs="4">
+                    <MudButton OnClick="AdicionarItem" Disabled="@(VariacaoProdutoSelecionada == null)" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">Adicionar</MudButton>
+                </MudItem>
+            </MudGrid>
+
+            <MudTable Items="@InputModel.Itens" Hover="true" Dense="true" Class="mt-4">
+                <HeaderContent>
+                    <MudTh>Produto</MudTh>
+                    <MudTh>Quantidade</MudTh>
+                    <MudTh>Ações</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="context_">
+                    <MudTd DataLabel="Produto">@GetVariacaoProdutoDescricao(context_.VariacaoProdutoId)</MudTd>
+                    <MudTd DataLabel="Quantidade">
+                        <MudNumericField @bind-Value="context_.Quantidade" Min="1" Variant="Variant.Outlined" Margin="Margin.Dense" Style="max-width: 100px;" />
+                    </MudTd>
+                    <MudTd DataLabel="Ações">
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" OnClick="@(() => RemoverItem(context_))" />
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText>Nenhum item adicionado ao pedido.</MudText>
+                </NoRecordsContent>
+            </MudTable>
+
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => DialogInstance.Cancel())">Cancelar</MudButton>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        }
+        else
+        {
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="OnValidSubmitAsync">Salvar Pedido</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

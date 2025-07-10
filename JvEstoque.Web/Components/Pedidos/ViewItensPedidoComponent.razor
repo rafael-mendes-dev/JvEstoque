@@ -1,1 +1,50 @@
-﻿
+﻿@inherits ViewItensPedidoComponentBase
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Itens do Pedido</MudText>
+    </TitleContent>
+    <DialogContent>
+        @if (IsBusy)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true"/>
+        }
+        else
+        {
+            @if (Itens.Count == 0)
+            {
+                <MudText>Nenhum item encontrado para este pedido.</MudText>
+            }
+            else
+            {
+                <MudGrid>
+                    @foreach (var item in Itens)
+                    {
+                        <MudItem xs="12">
+                            <MudCard Outlined="true" Class="mb-3">
+                                <MudCardContent>
+                                    <MudGrid>
+                                        <MudItem xs="13" sm="7">
+                                            <MudText Typo="Typo.h6">SKU: @(item.VariacaoProduto?.Sku ?? "N/A")</MudText>
+                                            <MudText>Produto: @(item.VariacaoProduto?.Produto?.Nome ?? "N/A")</MudText>
+                                            <MudText>Escola: @(item.VariacaoProduto?.Escola?.Nome ?? "N/A")</MudText>
+                                        </MudItem>
+                                        <MudItem xs="13" sm="7">
+                                            <MudText>Quantidade: @item.Quantidade</MudText>
+                                            <MudText>Valor unitário: @item.ValorUnitario.ToString("C")</MudText>
+                                            <MudText>Valor total: @item.SubTotal.ToString("C")</MudText>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+                <MudButton StartIcon="@Icons.Material.Rounded.ReadMore" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" OnClick="() => NavigationManager.NavigateTo(VariacoesRote)">Ver mais variações</MudButton>
+            }
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(() => DialogInstance.Close())">Fechar</MudButton>
+    </DialogActions>
+</MudDialog>

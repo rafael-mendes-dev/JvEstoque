@@ -14,7 +14,7 @@ public class DeleteEscolaEndpoint : IEndpoint
             .WithSummary("Deleta uma escola")
             .WithDescription("Deleta uma escola pelo ID")
             .WithOrder(3)
-            .Produces<Response<Escola?>>();
+            .Produces<Response<Escola?>>() ;
     
     public static async Task<IResult> HandleAsync(
         IEscolaHandler handler,
@@ -26,6 +26,6 @@ public class DeleteEscolaEndpoint : IEndpoint
         };
         
         var result = await handler.DeleteAsync(request);
-        return result.IsSucess ? TypedResults.Ok(result) : TypedResults.BadRequest(result.Data);
+        return result.IsSucess ? TypedResults.Ok(result) : TypedResults.BadRequest(result);
     }
 }

@@ -26,6 +26,6 @@ public class DeleteVariacaoProdutoEndpoint : IEndpoint
         };
         
         var result = await handler.DeleteAsync(request);
-        return result.IsSucess ? TypedResults.Ok(result) : TypedResults.BadRequest(result.Data);
+        return result.IsSucess ? TypedResults.Ok(result) : TypedResults.BadRequest(result);
     }
 }

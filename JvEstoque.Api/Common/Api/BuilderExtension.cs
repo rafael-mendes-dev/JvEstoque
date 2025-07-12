@@ -76,6 +76,7 @@ namespace JvEstoque.Api.Common.Api
             builder.Services.AddScoped<IProdutoHandler, ProdutoHandler>();
             builder.Services.AddScoped<IEscolaHandler, EscolaHandler>();
             builder.Services.AddScoped<IEstoqueHandler, EstoqueHandler>();
+            builder.Services.AddScoped<IReportHandler, ReportHandler>();
         }
 
         public static void ConfigureRateLimiter(this WebApplicationBuilder builder)

@@ -13,7 +13,7 @@ public class ReportHandler(AppDbContext context) : IReportHandler
     {
         try
         {
-            var data = await context.Faturamento.AsNoTracking().FirstOrDefaultAsync();
+            var data = await context.Faturamento.OrderByDescending(x => x.Entradas).AsNoTracking().FirstOrDefaultAsync();
             return new Response<FaturamentoReports?>(data);
         }
         catch
@@ -26,7 +26,7 @@ public class ReportHandler(AppDbContext context) : IReportHandler
     {
         try
         {
-            var data = await context.QuantidadeDePedidosPorStatus.AsNoTracking().FirstOrDefaultAsync();
+            var data = await context.QuantidadeDePedidosPorStatus.OrderByDescending(x => x.Finalizados).AsNoTracking().FirstOrDefaultAsync();
             return new Response<QuantidadeDePedidosPorStatusReport?>(data);
         }
         catch (Exception e)
@@ -39,7 +39,7 @@ public class ReportHandler(AppDbContext context) : IReportHandler
     {
         try
         {
-            var data = await context.PedidosConcluidos.AsNoTracking().FirstOrDefaultAsync();
+            var data = await context.PedidosConcluidos.OrderByDescending(x => x.Quantidade).AsNoTracking().FirstOrDefaultAsync();
             return new Response<PedidosConcluidosReport?>(data);
         }
         catch
@@ -52,7 +52,7 @@ public class ReportHandler(AppDbContext context) : IReportHandler
     {
         try
         {
-            var data = await context.ItensEmBaixoEstoque.AsNoTracking().FirstOrDefaultAsync();
+            var data = await context.ItensEmBaixoEstoque.OrderByDescending(x => x.Quantidade).AsNoTracking().FirstOrDefaultAsync();
             return new Response<ItensEmBaixoEstoqueReport?>(data);
         }
         catch

@@ -3,6 +3,7 @@ using JvEstoque.Api.Endpoints.Escolas;
 using JvEstoque.Api.Endpoints.Identity;
 using JvEstoque.Api.Endpoints.Pedidos;
 using JvEstoque.Api.Endpoints.Produtos;
+using JvEstoque.Api.Endpoints.Reports;
 using JvEstoque.Api.Endpoints.VariacaoProdutos;
 using JvEstoque.Api.Models;
 
@@ -57,6 +58,13 @@ public static class Endpoint
             .MapEndpoint<GetAllVariacoesProdutosByProdutoIdEndpoint>()
             .MapEndpoint<GetVariacaoProdutoByIdEndpoint>()
             .MapEndpoint<UpdateVariacaoProdutoEndpoint>();
+        
+        endpoints.MapGroup("v1/reports").WithTags("Reports")
+            .RequireAuthorization()
+            .MapEndpoint<GetFaturamentoEndpoint>()
+            .MapEndpoint<GetQuantidadeDePedidosPorStatusEndpoint>()
+            .MapEndpoint<GetPedidosConcluidosEndpoint>()
+            .MapEndpoint<GetItensEmBaixoEstoqueEndpoint>();
     }
 
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)

@@ -14,25 +14,13 @@
                 <MudButton Href="/" StartIcon="@Icons.Material.Rounded.Home" Class="d-none d-sm-inline-flex">
                     JV ESTOQUE
                 </MudButton>
-                <MudSpacer />
-                <MudButton Href="/produtos" StartIcon="@Icons.Material.Rounded.Inventory2" Class="d-none d-sm-inline-flex">
-                    Produtos
-                </MudButton>
-                <MudSpacer />
-                <MudButton Href="/dashboard" StartIcon="@Icons.Material.Rounded.Dashboard" Class="d-none d-sm-inline-flex">
-                    DashBoard
-                </MudButton>
-                <MudSpacer />
-                <MudButton Href="/pedidos" StartIcon="@Icons.Material.Rounded.Receipt" Class="d-none d-sm-inline-flex">
-                    Pedidos
-                </MudButton>
-                <MudSpacer />
+                <MudSpacer/>
                 <MudButton Href="/sair" StartIcon="@Icons.Material.Rounded.Logout" Class="d-none d-sm-inline-flex">
                     Sair
                 </MudButton>
                 <MudSwitch Color="Color.Inherit" @bind-Value="_isDarkMode" T="bool" ThumbIcon="@Icons.Material.Rounded.Lightbulb" Class="ma-4"/>
             </MudAppBar>
-            <MudDrawer @bind-Open="_isDrawerOpened" Elevation="1" Variant="DrawerVariant.Temporary" Overlay="true">
+            <MudDrawer @bind-Open="_isDrawerOpened" Elevation="1" Variant="DrawerVariant.Temporary">
                 <MudDrawerHeader>
                     <MudButton>Menu</MudButton>
                     <MudSpacer/>

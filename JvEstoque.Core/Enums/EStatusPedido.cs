@@ -1,6 +1,6 @@
 ﻿namespace JvEstoque.Core.Enums;
 
-public enum EStatusPedido
+public enum EStatusPedido : short
 {
     Recebido = 1,
     EmProducao = 2,

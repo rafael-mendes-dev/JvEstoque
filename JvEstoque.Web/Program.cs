@@ -34,6 +34,7 @@ builder.Services.AddTransient<IEscolaHandler, EscolaHandler>();
 builder.Services.AddTransient<IProdutoHandler, ProdutoHandler>();
 builder.Services.AddTransient<IPedidoHandler, PedidoHandler>();
 builder.Services.AddTransient<IVariacaoProdutoHandler, VariacaoProdutoHandler>();
+builder.Services.AddTransient<IReportHandler, ReportHandler>();
 
 builder.Services.AddLocalization();
 

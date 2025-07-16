@@ -1,0 +1,17 @@
+﻿@inherits PedidosConcluidosComponentBase
+
+<MudPaper Class="pa-4 d-flex flex-column justify-center align-center mud-width-full py-8" Elevation="2" >
+        <MudText Typo="Typo.h6" Class="mb-4">Pedidos concluídos</MudText>
+        
+        @if (IsBusy)
+        {
+            <div class="d-flex justify-center align-center" style="height: 300px;">
+                <MudProgressCircular Indeterminate="true" />
+            </div>
+        }
+        else
+        {
+            <MudText Color="Color.Success" Typo="Typo.h3">@Concluidos.ToString()
+                <MudIcon Icon="@Icons.Material.Rounded.TaskAlt" Size="Size.Large"/></MudText>
+        }
+</MudPaper>

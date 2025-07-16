@@ -22,16 +22,19 @@ public class ReportHandler(AppDbContext context) : IReportHandler
         }
     }
 
-    public async Task<Response<QuantidadeDePedidosPorStatusReport?>> GetQuantidadeDePedidosPorStatusAsync(GetQuantidadeDePedidosPorStatusRequest request)
+    public async Task<Response<List<QuantidadeDePedidosPorStatusReport>?>> GetQuantidadeDePedidosPorStatusAsync(GetQuantidadeDePedidosPorStatusRequest request)
     {
         try
         {
-            var data = await context.QuantidadeDePedidosPorStatus.OrderByDescending(x => x.Finalizados).AsNoTracking().FirstOrDefaultAsync();
-            return new Response<QuantidadeDePedidosPorStatusReport?>(data);
+            var data = await context.QuantidadeDePedidosPorStatus
+                .OrderByDescending(x => x.Quantidade)
+                .AsNoTracking()
+                .ToListAsync();;
+            return new Response<List<QuantidadeDePedidosPorStatusReport>?>(data);
         }
         catch (Exception e)
         {
-            return new Response<QuantidadeDePedidosPorStatusReport?>(null, 500, "Erro ao obter a quantidade de pedidos por status. Por favor, tente novamente mais tarde.");
+            return new Response<List<QuantidadeDePedidosPorStatusReport>?>(null, 500, "Erro ao obter a quantidade de pedidos por status. Por favor, tente novamente mais tarde.");
         }
     }
 

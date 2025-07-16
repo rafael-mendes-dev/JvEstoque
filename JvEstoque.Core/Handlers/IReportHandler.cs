@@ -7,7 +7,7 @@ namespace JvEstoque.Core.Handlers;
 public interface IReportHandler
 {
     Task<Response<FaturamentoReports?>> GetFaturamentoAsync(GetFaturamentoRequest request);
-    Task<Response<QuantidadeDePedidosPorStatusReport?>> GetQuantidadeDePedidosPorStatusAsync(GetQuantidadeDePedidosPorStatusRequest request);
+    Task<Response<List<QuantidadeDePedidosPorStatusReport>?>> GetQuantidadeDePedidosPorStatusAsync(GetQuantidadeDePedidosPorStatusRequest request);
     Task<Response<PedidosConcluidosReport?>> GetPedidosConcluidosAsync(GetPedidosConcluidosRequest request);
     Task<Response<ItensEmBaixoEstoqueReport?>> GetItensEmBaixoEstoqueAsync(GetItensEmBaixoEstoqueRequest request);
 }

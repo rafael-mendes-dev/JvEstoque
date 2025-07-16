@@ -1,18 +1,19 @@
-﻿@page "/dashboard"
+﻿@using JvEstoque.Web.Components.Reports
+@page "/dashboard"
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex align-center" Style="min-height: 80vh;">
     <MudGrid Justify="Justify.Center">
         <MudItem xs="12" sm="4">
-            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Card 1</MudPaper>
+            <FaturamentoComponent/>
         </MudItem>
         <MudItem xs="12" sm="4">
-            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Card 2</MudPaper>
+            <PedidosConcluidosComponent/>
         </MudItem>
         <MudItem xs="12" sm="4">
-            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Card 3</MudPaper>
+            <ItensEmBaixoEstoqueComponent/>
         </MudItem>
         <MudItem xs="12">
-            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">Card 5</MudPaper>
+            <PedidosPorStatusChart/>
         </MudItem>
     </MudGrid>
 </MudContainer>

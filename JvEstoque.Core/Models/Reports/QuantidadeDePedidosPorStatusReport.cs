@@ -1,3 +1,5 @@
-﻿namespace JvEstoque.Core.Models.Reports;
+﻿using JvEstoque.Core.Enums;
 
-public record QuantidadeDePedidosPorStatusReport(int Recebidos, int EmProducao, int Finalizados, int Cancelados);
+namespace JvEstoque.Core.Models.Reports;
+
+public record QuantidadeDePedidosPorStatusReport(EStatusPedido Status, int Quantidade);

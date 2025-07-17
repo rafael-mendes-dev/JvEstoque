@@ -32,7 +32,7 @@ public class ReportHandler(AppDbContext context) : IReportHandler
                 .ToListAsync();;
             return new Response<List<QuantidadeDePedidosPorStatusReport>?>(data);
         }
-        catch (Exception e)
+        catch
         {
             return new Response<List<QuantidadeDePedidosPorStatusReport>?>(null, 500, "Erro ao obter a quantidade de pedidos por status. Por favor, tente novamente mais tarde.");
         }

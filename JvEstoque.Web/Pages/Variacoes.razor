@@ -8,7 +8,8 @@
     <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Rounded.Add" OnClick="OnCreateButtonClickedAsync">NOVA VARIAÇÃO</MudButton>
 </div>
 
-<MudDataGrid T="VariacaoProduto" Dense="true" @ref="Grid" Hover="true" Class="mt-4" LoadingProgressColor="Color.Primary" Filterable="false" ServerData="LoadServerData" Hideable="true" ShowFilterIcons="true">
+<MudDataGrid  T="VariacaoProduto" Dense="true" @ref="Grid" Hover="true" Class="mt-4" LoadingProgressColor="Color.Primary" 
+              Filterable="false" ServerData="LoadServerData" Hideable="true" ShowFilterIcons="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Variações</MudText>
         <MudSpacer/>

@@ -27,13 +27,13 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./JvEstoque.Api -c Release -o ./publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./publish
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F74E738745344943A5D66937893C62BE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C9FB0BA8174240F8B5EBC4E79DFADDE6 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_716BF5B84E0241828974AE18561487B2 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_01F79E3187A847ABB6AE6A3688CBA2B9 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6149E26745854E4497DD4BE374642458 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_557D8A86CA034716B05C3E9DC48C001F }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp

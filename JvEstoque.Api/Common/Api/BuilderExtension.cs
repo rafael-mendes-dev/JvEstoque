@@ -43,6 +43,11 @@ namespace JvEstoque.Api.Common.Api
         {
             // Adicionar configuracoes de segurança, como autenticação e autorização
             builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.None; // Permite cross-site
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Sempre envia em HTTPS
+            });
             builder.Services.AddAuthorization();
         }
 

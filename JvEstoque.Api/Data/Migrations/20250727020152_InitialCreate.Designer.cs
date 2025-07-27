@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JvEstoque.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250711113330_AlteradoMapeamentoEstoque")]
-    partial class AlteradoMapeamentoEstoque
+    [Migration("20250727020152_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,6 +232,49 @@ namespace JvEstoque.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto", (string)null);
+                });
+
+            modelBuilder.Entity("JvEstoque.Core.Models.Reports.FaturamentoReports", b =>
+                {
+                    b.Property<decimal>("Entradas")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vwFaturamentoReport", (string)null);
+                });
+
+            modelBuilder.Entity("JvEstoque.Core.Models.Reports.ItensEmBaixoEstoqueReport", b =>
+                {
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vwItensEmBaixoEstoqueReport", (string)null);
+                });
+
+            modelBuilder.Entity("JvEstoque.Core.Models.Reports.PedidosConcluidosReport", b =>
+                {
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vwPedidosConcluidosReport", (string)null);
+                });
+
+            modelBuilder.Entity("JvEstoque.Core.Models.Reports.QuantidadeDePedidosPorStatusReport", b =>
+                {
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<short>("Status")
+                        .HasColumnType("smallint");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vwQuantidadeDePedidosPorStatusReport", (string)null);
                 });
 
             modelBuilder.Entity("JvEstoque.Core.Models.VariacaoProduto", b =>

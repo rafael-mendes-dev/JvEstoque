@@ -6,6 +6,7 @@ using JvEstoque.Api.Endpoints.Produtos;
 using JvEstoque.Api.Endpoints.Reports;
 using JvEstoque.Api.Endpoints.VariacaoProdutos;
 using JvEstoque.Api.Models;
+using JvEstoque.Core;
 
 namespace JvEstoque.Api.Endpoints;
 
@@ -15,7 +16,7 @@ public static class Endpoint
     {
         var endpoints = app.MapGroup("");
         
-        endpoints.MapGroup("/").WithTags("Health Check").MapGet("/", () => new {message = "OK"});
+        endpoints.MapGroup("/").WithTags("Health Check").MapGet("/", () => new {message = $"OK {Configuration.BackendUrl} {Configuration.FrontendUrl}"});
 
         endpoints.MapGroup("v1/identity").WithTags("Identity")
             .MapIdentityApi<User>();

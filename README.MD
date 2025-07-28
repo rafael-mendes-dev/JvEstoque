@@ -1,26 +1,27 @@
 # JvEstoque
 
-> **Status:** 🚧 Projeto em desenvolvimento
+> **Status:** 🚀 Projeto entregue e em funcionamento
 
 ## Descrição
 
-O **JvEstoque** é um sistema para gerenciamento de estoque, desenvolvido com o objetivo de facilitar o controle de produtos, entradas, saídas e inventário para a loja Jv Uniformes. O projeto está em fase inicial e novas funcionalidades estão sendo implementadas continuamente.
+O **JvEstoque** é um sistema completo de gerenciamento de estoque, desenvolvido para a loja Jv Uniformes, com o objetivo de otimizar o controle de produtos, entradas, saídas e inventário. Este projeto foi realizado como parte de um trabalho voluntário, proporcionando uma solução tecnológica personalizada e eficiente para o negócio.
 
-## Funcionalidades previstas
+O desenvolvimento do sistema foi uma excelente oportunidade para aprimorar conhecimentos e aplicar, na prática, conceitos aprendidos em cursos, especialmente os do @balta.io.
 
-- Cadastro de produtos
+## Funcionalidades
+
+- Cadastro e edição de produtos
 - Controle de entrada e saída de estoque
-- Histórico de movimentação
-- Relatórios de inventário
-- Interface amigável para o usuário
+- Histórico detalhado de pedidos
+- Relatórios de inventário personalizáveis
+- Interface moderna, intuitiva e responsiva
 
 ## Tecnologias Utilizadas
 
-- **C#** (linguagem principal)
-- ASP.NET Core
-- Blazor (Com MudBlazor)
-- Docker
-- SQL Server
+- **Back-end:** C#, ASP.NET Core, Entity Framework, Docker (utilizado durante o desenvolvimento)
+- **Front-end:** Blazor WASM (WebAssembly) PWA, MudBlazor
+- **Banco de Dados:** SQL Server, Azure SQL Database
+- **Deploy:** Azure App Service (back-end), Azure Static Web App (front-end)
 
 ## Como contribuir
 
@@ -32,7 +33,7 @@ O **JvEstoque** é um sistema para gerenciamento de estoque, desenvolvido com o 
 
 ## Observações
 
-Este projeto está em desenvolvimento inicial. Sugestões, críticas construtivas e contribuições são bem-vindas!
+Este projeto foi desenvolvido e entregue como uma solução voluntária, mas está aberto a sugestões, melhorias e contribuições da comunidade. Toda colaboração é bem-vinda!
 
 ---
 
